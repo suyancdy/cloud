@@ -1,0 +1,14 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: peopleManage  # 服务间调用所使用的名称
+feign:
+  hystrix:
+    enabled: true
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/

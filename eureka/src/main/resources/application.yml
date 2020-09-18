@@ -1,0 +1,16 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: eureka-server
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    # 声明是否将自己的信息注册到Eureka服务器（当有多个Eureka服务器端开启）
+    register-with-eureka: false
+    # 是否到Eureka器中抓取注册信息（当有多个Eureka服务器端开启）
+    fetch-registry: false
+    # 关掉自我保护机制
+  server:
+    enable-self-preservation: false
