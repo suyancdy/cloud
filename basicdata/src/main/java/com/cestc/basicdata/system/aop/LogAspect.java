@@ -60,15 +60,16 @@ public class LogAspect {
         Enumeration<String> enu = request.getParameterNames();
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
-            log.info("controller层参数: {}   值为: {}", name, request.getParameter(name));
+            log.info("controller层参数: {}  值为: {}", name, request.getParameter(name));
         }
 
     }
 
 
     @AfterReturning(returning = "returnValue", pointcut = "controllerLog()")
-    public void doAfter(Object returnValue) {
-        log.info("返回值为: {}", returnValue.toString());
+    public void doAfter( JoinPoint joinPoint, Object returnValue) {
+        log.info("controller层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
+        log.info("controller层返回值为: {}", returnValue);
     }
 
 
@@ -91,6 +92,13 @@ public class LogAspect {
         }else {
             throw new Exception("service层入参的参数名个数和参数个数不一致！！！");
         }
+    }
+
+
+    @AfterReturning(returning = "returnValue", pointcut = "serviceLog()")
+    public void doServiceAfter( JoinPoint joinPoint, Object returnValue) {
+        log.info("service层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
+        log.info("service层返回值为: {}", returnValue);
     }
 
 
