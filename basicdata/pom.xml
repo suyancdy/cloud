@@ -11,6 +11,13 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>basicdata</artifactId>
     <dependencies>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!-- Eureka 客户端依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
