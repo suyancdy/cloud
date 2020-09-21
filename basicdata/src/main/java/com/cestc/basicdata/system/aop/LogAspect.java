@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 
 /**
- * @Description:
+ * @Description: aop拦截controller和service两层的入参和出参
  * @Author: chendeyin
  * @Date: 2020/9/20 14:12
  * @See: com.cestc.basicdata.system.aop
@@ -29,7 +29,6 @@ import java.util.Enumeration;
 public class LogAspect {
 
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
-
 
     private static final String CONTROLLER_LOG = "";
 
@@ -50,55 +49,89 @@ public class LogAspect {
     public void controllerLog() {
     }
 
+
+    /**
+     * @description: 控制层前调方法
+     * @author: chendeyin
+     * @date: 2020/9/21 10:34
+     * @param joinPoint:
+     * @return: void
+     */
     @Before("controllerLog()")
     public void doBefore(JoinPoint joinPoint) {
         ServletRequestAttributes attributes =
                 (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         log.info("请求方法: {}, 路径: {}", request.getMethod(), request.getRequestURL().toString());
-        log.info("controller层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
+        log.info("进入controller层方法: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
         Enumeration<String> enu = request.getParameterNames();
         while (enu.hasMoreElements()) {
             String name = (String) enu.nextElement();
-            log.info("controller层参数: {}  值为: {}", name, request.getParameter(name));
+            log.info("进入controller层参数: {}  值为: {}", name, request.getParameter(name));
         }
 
     }
 
-
+    /**
+     * @description: 控制层后调方法
+     * @author: chendeyin
+     * @date: 2020/9/21 10:37
+     * @param joinPoint:
+     * @param returnValue:
+     * @return: void
+     */
     @AfterReturning(returning = "returnValue", pointcut = "controllerLog()")
     public void doAfter( JoinPoint joinPoint, Object returnValue) {
-        log.info("controller层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
-        log.info("controller层返回值为: {}", returnValue);
+        log.info("退出controller层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
+        log.info("退出controller层返回值为: {}", returnValue);
     }
 
-
+    /**
+     * @description: 定义service层切面
+     * @author: chendeyin
+     * @date: 2020/9/21 10:39
+     * @return: void
+     */
     @Pointcut("execution( * com.cestc.basicdata.system.service.impl.*.*(..))")
     public void serviceLog() {
 
     }
 
+    /**
+     * @description: service层前调方法
+     * @author: chendeyin
+     * @date: 2020/9/21 10:38
+     * @param joinPoint:
+     * @return: void
+     */
     @Before("serviceLog()")
     public void doServiceBefore(JoinPoint joinPoint) throws Exception{
         Signature signature = joinPoint.getSignature();
-        log.info("service层方法为: {}", joinPoint.getTarget().getClass() + "." + signature.getName());
+        log.info("进入service层方法为: {}", joinPoint.getTarget().getClass() + "." + signature.getName());
         MethodSignature methodSignature = (MethodSignature) signature;
         String[] parameterNameArr = methodSignature.getParameterNames();
         Object[] objectArr = joinPoint.getArgs();
         if (parameterNameArr.length == objectArr.length) {
             for (int i = 0; i < parameterNameArr.length; i++) {
-                log.info("service层参数: {}   值为: {}", parameterNameArr[i], objectArr[i]);
+                log.info("进入service层参数: {}   值为: {}", parameterNameArr[i], objectArr[i]);
             }
         }else {
-            throw new Exception("service层入参的参数名个数和参数个数不一致！！！");
+            throw new Exception("进入service层入参的参数名个数和参数个数不一致！！！");
         }
     }
 
-
+    /**
+     * @description: service后调方法
+     * @author: chendeyin
+     * @date: 2020/9/21 10:39
+     * @param joinPoint:
+     * @param returnValue:
+     * @return: void
+     */
     @AfterReturning(returning = "returnValue", pointcut = "serviceLog()")
     public void doServiceAfter( JoinPoint joinPoint, Object returnValue) {
-        log.info("service层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
-        log.info("service层返回值为: {}", returnValue);
+        log.info("退出service层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
+        log.info("退出service层返回值为: {}", returnValue);
     }
 
 

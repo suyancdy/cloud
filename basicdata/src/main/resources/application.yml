@@ -2,7 +2,18 @@ server:
   port: 9081
 spring:
   application:
-    name: basicData  # 服务间调用所使用的名称
+    name: cloud-basicdata  # 服务间调用所使用的名称
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://sh-cdb-n7qvnw90.sql.tencentcdb.com:60834/cloud_test?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
+    username: root
+    password: 123456
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 60000
+      maximum-pool-size: 30
+      minimum-idle: 10
+
 eureka:
   instance:
     hostname: localhost

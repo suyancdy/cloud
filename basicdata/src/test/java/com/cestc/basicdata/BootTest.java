@@ -12,10 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @Slf4j
 @SpringBootTest
-public class Test {
+public class BootTest {
 
     public static void main(String[] args) {
-        String packageName = Test.class.getPackage().getName();
+        String packageName = BootTest.class.getPackage().getName();
         log.info("测试结果为： {}", packageName);
     }
 
