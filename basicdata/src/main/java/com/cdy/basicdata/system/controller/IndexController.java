@@ -2,6 +2,7 @@ package com.cdy.basicdata.system.controller;
 
 
 import com.cdy.basicdata.system.entity.People;
+import com.cdy.basicdata.system.mapper.PeopleMapper;
 import com.cdy.basicdata.system.service.IndexService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,24 +35,31 @@ public class IndexController {
     private IndexService indexService;
 
 
+    @Autowired
+    private PeopleMapper peopleMapper;
+
+
     @ResponseBody
     @RequestMapping("/port")
-    public People getPort(@RequestParam("ip") String ip, @RequestParam("sex") String sex){
+    public List<People> getPort(){
 
-
-        String[] stringArr = {"ll", "jj"};
-
-        Map<String, String> map = new HashMap<>();
-        map.put("2", "以哦");
-        People people = new People();
-        people.setId(1);
-        people.setName("喜喜");
-
-       indexService.fun("hehe", people);
+//        People people = new People();
+//        people.setName("你好");
+//        peopleMapper.insert(people);
+//        log.info("插入的people为：{}", people.toString());
 
 
 
-        return  people;
+        List<People> peopleList = peopleMapper.selectAll();
+
+
+        return  peopleList;
+
+
+
+
+
+
     }
 
 

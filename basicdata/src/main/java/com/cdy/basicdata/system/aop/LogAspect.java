@@ -45,7 +45,7 @@ public class LogAspect {
      * @date: 2020/9/20 14:17
      * @return: void
      */
-    @Pointcut("execution( * com.cestc.basicdata.system.controller.*.*(..))")
+    @Pointcut("execution( * com.cdy.basicdata.system.controller.*.*(..))")
     public void controllerLog() {
     }
 
@@ -92,7 +92,7 @@ public class LogAspect {
      * @date: 2020/9/21 10:39
      * @return: void
      */
-    @Pointcut("execution( * com.cestc.basicdata.system.service.impl.*.*(..))")
+    @Pointcut("execution( * com.cdy.basicdata.system.service.impl.*.*(..))")
     public void serviceLog() {
 
     }
@@ -134,5 +134,53 @@ public class LogAspect {
         log.info("退出service层返回值为: {}", returnValue);
     }
 
+
+    /**
+     * @description: 定义mapper层切面
+     * @author: chendeyin
+     * @date: 2020/9/21 10:39
+     * @return: void
+     */
+    @Pointcut("execution( * com.cdy.basicdata.system.mapper.*.*(..))")
+    public void mapperLog() {
+
+    }
+
+    /**
+     * @description: mapper层前调方法
+     * @author: chendeyin
+     * @date: 2020/9/21 10:38
+     * @param joinPoint:
+     * @return: void
+     */
+    @Before("mapperLog()")
+    public void doMapperBefore(JoinPoint joinPoint) throws Exception{
+        Signature signature = joinPoint.getSignature();
+        log.info("进入mapper层方法为: {}", joinPoint.getTarget().getClass() + "." + signature.getName());
+        MethodSignature methodSignature = (MethodSignature) signature;
+        String[] parameterNameArr = methodSignature.getParameterNames();
+        Object[] objectArr = joinPoint.getArgs();
+        if (parameterNameArr.length == objectArr.length) {
+            for (int i = 0; i < parameterNameArr.length; i++) {
+                log.info("进入mapper层参数: {}   值为: {}", parameterNameArr[i], objectArr[i]);
+            }
+        }else {
+            throw new Exception("进入mapper层入参的参数名个数和参数个数不一致！！！");
+        }
+    }
+
+    /**
+     * @description: mapper后调方法
+     * @author: chendeyin
+     * @date: 2020/9/21 10:39
+     * @param joinPoint:
+     * @param returnValue:
+     * @return: void
+     */
+    @AfterReturning(returning = "returnValue", pointcut = "mapperLog()")
+    public void doMapperAfter( JoinPoint joinPoint, Object returnValue) {
+        log.info("退出mapper层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
+        log.info("退出mapper层返回值为: {}", returnValue);
+    }
 
 }

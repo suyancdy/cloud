@@ -3,6 +3,7 @@ package com.cdy.basicdata;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import tk.mybatis.spring.annotation.MapperScan;
 
 /**
  * @Description:
@@ -13,6 +14,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @EnableDiscoveryClient
 @SpringBootApplication
+@MapperScan("com.cdy.basicdata.system.mapper")
 public class BasicDataApplication {
     public static void main(String[] args) {
         SpringApplication.run(BasicDataApplication.class,args);
