@@ -51,10 +51,10 @@ public class LogAspect {
 
 
     /**
+     * @param joinPoint:
      * @description: 控制层前调方法
      * @author: chendeyin
      * @date: 2020/9/21 10:34
-     * @param joinPoint:
      * @return: void
      */
     @Before("controllerLog()")
@@ -73,15 +73,15 @@ public class LogAspect {
     }
 
     /**
+     * @param joinPoint:
+     * @param returnValue:
      * @description: 控制层后调方法
      * @author: chendeyin
      * @date: 2020/9/21 10:37
-     * @param joinPoint:
-     * @param returnValue:
      * @return: void
      */
     @AfterReturning(returning = "returnValue", pointcut = "controllerLog()")
-    public void doAfter( JoinPoint joinPoint, Object returnValue) {
+    public void doAfter(JoinPoint joinPoint, Object returnValue) {
         log.info("退出controller层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
         log.info("退出controller层返回值为: {}", returnValue);
     }
@@ -98,14 +98,14 @@ public class LogAspect {
     }
 
     /**
+     * @param joinPoint:
      * @description: service层前调方法
      * @author: chendeyin
      * @date: 2020/9/21 10:38
-     * @param joinPoint:
      * @return: void
      */
     @Before("serviceLog()")
-    public void doServiceBefore(JoinPoint joinPoint) throws Exception{
+    public void doServiceBefore(JoinPoint joinPoint) throws Exception {
         Signature signature = joinPoint.getSignature();
         log.info("进入service层方法为: {}", joinPoint.getTarget().getClass() + "." + signature.getName());
         MethodSignature methodSignature = (MethodSignature) signature;
@@ -115,21 +115,21 @@ public class LogAspect {
             for (int i = 0; i < parameterNameArr.length; i++) {
                 log.info("进入service层参数: {}   值为: {}", parameterNameArr[i], objectArr[i]);
             }
-        }else {
+        } else {
             throw new Exception("进入service层入参的参数名个数和参数个数不一致！！！");
         }
     }
 
     /**
+     * @param joinPoint:
+     * @param returnValue:
      * @description: service后调方法
      * @author: chendeyin
      * @date: 2020/9/21 10:39
-     * @param joinPoint:
-     * @param returnValue:
      * @return: void
      */
     @AfterReturning(returning = "returnValue", pointcut = "serviceLog()")
-    public void doServiceAfter( JoinPoint joinPoint, Object returnValue) {
+    public void doServiceAfter(JoinPoint joinPoint, Object returnValue) {
         log.info("退出service层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
         log.info("退出service层返回值为: {}", returnValue);
     }
@@ -147,40 +147,39 @@ public class LogAspect {
     }
 
     /**
+     * @param joinPoint:
      * @description: mapper层前调方法
      * @author: chendeyin
      * @date: 2020/9/21 10:38
-     * @param joinPoint:
      * @return: void
      */
     @Before("mapperLog()")
-    public void doMapperBefore(JoinPoint joinPoint) throws Exception{
+    public void doMapperBefore(JoinPoint joinPoint) throws Exception {
         Signature signature = joinPoint.getSignature();
         log.info("进入mapper层方法为: {}", joinPoint.getTarget().getClass() + "." + signature.getName());
-        MethodSignature methodSignature = (MethodSignature) signature;
-        String[] parameterNameArr = methodSignature.getParameterNames();
         Object[] objectArr = joinPoint.getArgs();
-        if (parameterNameArr.length == objectArr.length) {
-            for (int i = 0; i < parameterNameArr.length; i++) {
-                log.info("进入mapper层参数: {}   值为: {}", parameterNameArr[i], objectArr[i]);
+        if (0 != objectArr.length) {
+            for (int i = 0; i < objectArr.length; i++) {
+                log.info("进入mapper层参数值为: {}", objectArr[i]);
             }
-        }else {
-            throw new Exception("进入mapper层入参的参数名个数和参数个数不一致！！！");
         }
     }
 
     /**
+     * @param joinPoint:
+     * @param returnValue:
      * @description: mapper后调方法
      * @author: chendeyin
      * @date: 2020/9/21 10:39
-     * @param joinPoint:
-     * @param returnValue:
      * @return: void
      */
     @AfterReturning(returning = "returnValue", pointcut = "mapperLog()")
-    public void doMapperAfter( JoinPoint joinPoint, Object returnValue) {
+    public void doMapperAfter(JoinPoint joinPoint, Object returnValue) {
         log.info("退出mapper层方法为: {}", joinPoint.getTarget().getClass() + "." + joinPoint.getSignature().getName());
-        log.info("退出mapper层返回值为: {}", returnValue);
+        if (null != returnValue) {
+            log.info("退出mapper层返回值为: {}", returnValue);
+        }
+
     }
 
 }

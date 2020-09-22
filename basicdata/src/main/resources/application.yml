@@ -18,7 +18,7 @@ mybatis:
 
 eureka:
   instance:
-    hostname: localhost
+    hostname: 140.143.45.195
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:8761/eureka/

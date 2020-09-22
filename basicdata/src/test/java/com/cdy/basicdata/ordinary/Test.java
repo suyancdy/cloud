@@ -1,6 +1,7 @@
 package com.cdy.basicdata.ordinary;
 
 import lombok.extern.slf4j.Slf4j;
+import sun.plugin2.jvm.CircularByteBuffer;
 
 import java.util.concurrent.Callable;
 
@@ -11,13 +12,23 @@ import java.util.concurrent.Callable;
  * @See: com.cestc.basicdata
  * @Modified:
  */
+@Slf4j
 public class Test {
     public static void main(String[] args) {
+
+        log.info("主线程的名字为： {}", Thread.currentThread().getName());
+
+        // 启动继承Thread类的任务
         T t = new T();
         t.start();
 
-
-
+        // 启动继承Thread匿名内部类的任务，可以用lambda优化
+        new Thread(){
+            @Override
+            public void run() {
+                log.info("我是Thread匿名内部类的任务");
+            }
+        }.start();
     }
 
 }
@@ -43,9 +54,7 @@ class R implements Runnable {
 class C implements Callable<String> {
     @Override
     public String call() throws Exception {
-
         log.info("我是实现Callable的任务");
-
         return "success";
     }
 }

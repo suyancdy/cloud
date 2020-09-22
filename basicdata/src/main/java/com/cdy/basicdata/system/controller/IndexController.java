@@ -52,6 +52,8 @@ public class IndexController {
 
         List<People> peopleList = peopleMapper.selectAll();
 
+        //peopleMapper.selectByExample();
+
 
         return  peopleList;
 
