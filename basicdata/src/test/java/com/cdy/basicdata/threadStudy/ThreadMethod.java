@@ -26,11 +26,9 @@ public class ThreadMethod {
         Runnable runnable2 = () -> {
             int count = 0;
             for (; ; ) {
-                Thread.yield();
-                Thread.yield();
+              //  Thread.yield();
                 log.info("runnable2-----" + count++);
-                Thread.yield();
-                Thread.yield();
+
             }
         };
 
