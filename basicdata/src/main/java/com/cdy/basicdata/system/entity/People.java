@@ -32,6 +32,7 @@ public class People  implements Serializable {
 
     private Integer age; // 年龄
 
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date birthday; // 出生日期

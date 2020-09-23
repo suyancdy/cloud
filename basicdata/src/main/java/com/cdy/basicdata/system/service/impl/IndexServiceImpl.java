@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class IndexServiceImpl  implements IndexService {
 
+
+
     @Override
     public String fun(String value, People people000) {
 

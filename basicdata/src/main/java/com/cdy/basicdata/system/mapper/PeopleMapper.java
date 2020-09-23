@@ -14,6 +14,7 @@ import java.util.List;
  * @See: com.cdy.basicdata.system.mapper
  * @Modified:
  */
+
 @Repository
 public interface PeopleMapper  extends BaseMapper<People> {
 

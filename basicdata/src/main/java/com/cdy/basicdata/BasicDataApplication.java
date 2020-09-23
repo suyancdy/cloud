@@ -12,6 +12,7 @@ import tk.mybatis.spring.annotation.MapperScan;
  * @See: com.cestc.basicdata
  * @Modified:
  */
+
 @EnableDiscoveryClient
 @SpringBootApplication
 @MapperScan("com.cdy.basicdata.system.mapper")

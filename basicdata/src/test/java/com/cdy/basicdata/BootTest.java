@@ -14,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class BootTest {
 
+
     public static void main(String[] args) {
         String packageName = BootTest.class.getPackage().getName();
         log.info("测试结果为： {}", packageName);

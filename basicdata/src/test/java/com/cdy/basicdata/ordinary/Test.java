@@ -22,6 +22,7 @@ public class Test {
         T t = new T();
         t.start();
 
+
         // 启动继承Thread匿名内部类的任务，可以用lambda优化
         new Thread(){
             @Override
