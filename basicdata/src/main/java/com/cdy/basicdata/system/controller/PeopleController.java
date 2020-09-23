@@ -1,14 +1,12 @@
 package com.cdy.basicdata.system.controller;
 
+import com.cdy.basicdata.common.core.AjaxResult;
 import com.cdy.basicdata.system.entity.People;
 import com.cdy.basicdata.system.mapper.PeopleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
@@ -28,6 +26,15 @@ public class PeopleController {
 
     @Autowired
     private PeopleMapper peopleMapper;
+
+
+    @GetMapping("/getDetail/{id}")
+    @ResponseBody
+    public AjaxResult getDetail(@PathVariable("id") Integer id){
+
+        People people =  peopleMapper.selectByPrimaryKey(id);
+        return AjaxResult.success(people);
+    }
 
 
     @PostMapping("/insert")

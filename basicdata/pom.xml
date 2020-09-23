@@ -18,6 +18,9 @@
             <optional>true</optional>
         </dependency>
 
+
+
+
         <!-- Eureka 客户端依赖 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>

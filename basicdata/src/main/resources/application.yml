@@ -1,5 +1,5 @@
 server:
-  port: 9081
+  port: 520
 spring:
   application:
     name: cloud-basicdata  # 服务间调用所使用的名称
@@ -18,7 +18,7 @@ mybatis:
 
 eureka:
   instance:
-    hostname: 140.143.45.195
+    hostname: 127.0.0.1
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:8761/eureka/

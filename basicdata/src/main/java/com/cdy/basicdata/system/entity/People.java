@@ -1,10 +1,15 @@
 package com.cdy.basicdata.system.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.*;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -26,10 +31,11 @@ public class People  implements Serializable {
 
     private String peopleNo; // 编号
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String name; // 姓名
 
     private String sex; // 性别
-
+    @JsonIgnore
     private Integer age; // 年龄
 
 
