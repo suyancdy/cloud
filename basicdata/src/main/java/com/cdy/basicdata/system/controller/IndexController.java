@@ -41,22 +41,9 @@ public class IndexController {
 
 
     @ResponseBody
-    @RequestMapping("/port")
-    public List<People> getPort(){
-
-//        People people = new People();
-//        people.setName("你好");
-//        peopleMapper.insert(people);
-//        log.info("插入的people为：{}", people.toString());
-
-
-
-        List<People> peopleList = peopleMapper.selectAll();
-
-        //peopleMapper.selectByExample();
-
-
-        return  peopleList;
+    @RequestMapping("/")
+    public String getPort(){
+        return  "123";
 
 
 

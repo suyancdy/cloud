@@ -18,8 +18,8 @@ public class ThreadMethod {
     public static void main(String[] args) throws InterruptedException {
         int cpuCore =  Runtime.getRuntime().availableProcessors();
         log.info("当前cpu的核心数为： {}", cpuCore);
-        daemonThreads();
-        Thread.sleep(8*1000);
+       // daemonThreads();
+        //Thread.sleep(8*1000);
     }
     /**
      * @description:  线程的礼让与线程的优先级

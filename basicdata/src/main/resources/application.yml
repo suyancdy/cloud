@@ -13,12 +13,14 @@ spring:
       idle-timeout: 60000
       maximum-pool-size: 30
       minimum-idle: 10
+
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
 
 eureka:
   instance:
-    hostname: 127.0.0.1
+#    hostname: 127.0.0.1
+    hostname: 140.143.45.195
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:8761/eureka/
