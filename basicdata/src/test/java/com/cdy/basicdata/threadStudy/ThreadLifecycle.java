@@ -1,5 +1,7 @@
 package com.cdy.basicdata.threadStudy;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * 线程的生命周期
  *    当线程被创建并启动后，他并不是一启动就进入了执行状态，也不是一直处于执行状态，
@@ -10,11 +12,36 @@ package com.cdy.basicdata.threadStudy;
  * @Author: chendeyin
  * @Modified:
  */
+@Slf4j
 public class ThreadLifecycle {
-    /*
-     当程序使用new关键字创建了一个线程之后，该线程就处于新建状态
-     */
 
+    public static void main(String[] args) {
+
+       ThreadLifecycle.newAndRunnable();
+       log.info("---");
+    }
+
+
+    // 新建和就绪状态
+    public static void newAndRunnable() {
+        /*当程序使用new关键字创建一个线程之后，
+        该线程就处于新建状态，此时他和其他的Java对象一样，
+        仅仅由Java虚拟机为其分配内存，并初始化成员变量
+         */
+        Thread t = new Thread( () -> {
+            log.info("我是Runnable的lambda简化后的任务,即将休眠5秒");
+            try {
+                Thread.sleep(5*1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.info("休眠5秒结束");
+        });
+        t.start();
+    }
 
 
 }
+
+
+

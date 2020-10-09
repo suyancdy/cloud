@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @Slf4j
 @Controller
-@RequestMapping("/index")
+@RequestMapping("")
 public class IndexController {
 
 
@@ -41,7 +41,7 @@ public class IndexController {
 
 
     @ResponseBody
-    @RequestMapping("/")
+    @RequestMapping("")
     public String getPort(){
         return  "123";
 
