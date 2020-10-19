@@ -6,6 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.util.Date;
 import java.util.UUID;
@@ -23,6 +26,8 @@ public class BootTest {
 
     @Autowired
     private PeopleMapper peopleMapper;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Test
     public void fun(){
@@ -42,6 +47,15 @@ public class BootTest {
 
     @Test
     public  void main() {
+        redisTemplate.setKeySerializer( new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));
+        People people = new People();
+        people.setPeopleNo(UUID.randomUUID().toString().replaceAll("-", ""));
+        people.setName("我是" + 1);
+        people.setSex(1);
+        people.setAge(1);
+        people.setBirthday(new Date());
+        redisTemplate.opsForValue().set("my", people);
         log.info(UUID.randomUUID().toString().replaceAll("-", ""));
     }
 }

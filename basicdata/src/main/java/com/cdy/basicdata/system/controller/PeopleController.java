@@ -6,6 +6,7 @@ import com.cdy.basicdata.system.mapper.PeopleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import tk.mybatis.mapper.entity.Example;
 
@@ -31,6 +32,10 @@ public class PeopleController {
     @GetMapping("/getDetail/{id}")
     @ResponseBody
     public AjaxResult getDetail(@PathVariable("id") Integer id){
+
+
+
+
 
         People people =  peopleMapper.selectByPrimaryKey(id);
         return AjaxResult.success(people);
