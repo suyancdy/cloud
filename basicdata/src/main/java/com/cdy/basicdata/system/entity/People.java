@@ -34,7 +34,7 @@ public class People  implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String name; // 姓名
 
-    private String sex; // 性别
+    private Integer sex; // 性别
     @JsonIgnore
     private Integer age; // 年龄
 

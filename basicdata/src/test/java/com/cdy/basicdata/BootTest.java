@@ -1,7 +1,14 @@
 package com.cdy.basicdata;
 
+import com.cdy.basicdata.system.entity.People;
+import com.cdy.basicdata.system.mapper.PeopleMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * @Description:
@@ -14,10 +21,27 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class BootTest {
 
+    @Autowired
+    private PeopleMapper peopleMapper;
 
-    public static void main(String[] args) {
-        String packageName = BootTest.class.getPackage().getName();
-        log.info("测试结果为： {}", packageName);
+    @Test
+    public void fun(){
+
+        log.info("开始");
+        for (int i = 0; i < 10000; i++) {
+            People people = new People();
+            people.setPeopleNo(UUID.randomUUID().toString().replaceAll("-", ""));
+            people.setName("我是" + i);
+            people.setSex(1);
+            people.setAge(i);
+            people.setBirthday(new Date());
+            peopleMapper.insert(people);
+        }
+        log.info("结束");
     }
 
+    @Test
+    public  void main() {
+        log.info(UUID.randomUUID().toString().replaceAll("-", ""));
+    }
 }

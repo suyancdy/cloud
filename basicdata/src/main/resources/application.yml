@@ -5,7 +5,7 @@ spring:
     name: cloud-basicdata  # 服务间调用所使用的名称
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://140.143.45.195:3306/cloud_test?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
+    url: jdbc:mysql://localhost:3306/cloud_test?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
     username: root
     password: cdy@176531
     hikari:
@@ -19,8 +19,7 @@ mybatis:
 
 eureka:
   instance:
-#    hostname: 127.0.0.1
-    hostname: 140.143.45.195
+    hostname: 127.0.0.1
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:8761/eureka/
