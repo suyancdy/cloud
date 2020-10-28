@@ -37,7 +37,7 @@ public class BootTest {
             People people = new People();
             people.setPeopleNo(UUID.randomUUID().toString().replaceAll("-", ""));
             people.setName("我是" + i);
-            people.setSex(1);
+            people.setSex(0);
             people.setAge(i);
             people.setBirthday(new Date());
             peopleMapper.insert(people);

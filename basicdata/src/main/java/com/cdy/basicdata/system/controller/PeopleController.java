@@ -32,11 +32,6 @@ public class PeopleController {
     @GetMapping("/getDetail/{id}")
     @ResponseBody
     public AjaxResult getDetail(@PathVariable("id") Integer id){
-
-
-
-
-
         People people =  peopleMapper.selectByPrimaryKey(id);
         return AjaxResult.success(people);
     }
@@ -53,6 +48,7 @@ public class PeopleController {
     @PostMapping("/list")
     @ResponseBody
     public List<People> listPeople(){
+
         Example example = new Example(People.class);
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo("name", "你好");
