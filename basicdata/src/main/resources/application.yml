@@ -2,7 +2,7 @@ server:
   port: 520
 spring:
   application:
-    name: cloud-basicdata  # 服务间调用所使用的名称
+    name: chendeyin-cloud-basicdata  # 服务间调用所使用的名称
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cloud_test?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
@@ -13,23 +13,23 @@ spring:
       idle-timeout: 60000
       maximum-pool-size: 30
       minimum-idle: 10
-  redis:
-    database: 0
-    port: 6379
-    host: localhost
-    jedis:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 8
-        min-idle: 0
+#  redis:
+#    database: 0
+#    port: 6379
+#    host: localhost
+#    jedis:
+#      pool:
+#        max-active: 8
+#        max-wait: -1
+#        max-idle: 8
+#        min-idle: 0
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
 
 eureka:
   instance:
-    hostname: 127.0.0.1
+    hostname: http://192.168.0.151:20001
   client:
     service-url:
       defaultZone: http://${eureka.instance.hostname}:8761/eureka/
