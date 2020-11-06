@@ -26,10 +26,10 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
-
-eureka:
-  instance:
-    hostname: http://192.168.0.151:20001
-  client:
-    service-url:
-      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+#
+#eureka:
+#  instance:
+#    hostname: http://192.168.0.151:20001
+#  client:
+#    service-url:
+#      defaultZone: http://${eureka.instance.hostname}:8761/eureka/

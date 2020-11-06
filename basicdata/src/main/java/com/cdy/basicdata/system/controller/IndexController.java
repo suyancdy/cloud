@@ -1,9 +1,8 @@
 package com.cdy.basicdata.system.controller;
 
 
-import com.cdy.basicdata.system.entity.People;
-import com.cdy.basicdata.system.mapper.PeopleMapper;
-import com.cdy.basicdata.system.service.IndexService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -11,17 +10,14 @@ import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @Description:
@@ -30,6 +26,7 @@ import java.util.Map;
  * @See: com.cestc.basicdata.system.controller
  * @Modified:
  */
+@Api(tags = "主页")
 @Slf4j
 @Controller
 @RequestMapping("/index")
@@ -62,14 +59,16 @@ public class IndexController {
     }
 
 
+
+    @ApiOperation(value = "word导出")
     @RequestMapping(value = "/word/{id}", method = RequestMethod.GET)
     public void excel(@PathVariable Integer id, HttpServletResponse httpServletResponse) throws InvalidFormatException, IOException {
         // MattersOnlineVO mattersOnlineVO = onlineService.getById(id);
 
         //XWPFTemplate template = XWPFTemplate.compile("D:\\yhsFile\\temp\\1word\\my.docx");
 
-        XWPFDocument doc = new XWPFDocument();
-        XWPFParagraph titleParagraph1 = doc.createParagraph();
+        XWPFDocument document = new XWPFDocument();
+        XWPFParagraph titleParagraph1 = document.createParagraph();
         titleParagraph1.setAlignment(ParagraphAlignment.CENTER);
         XWPFRun titleRun1 = titleParagraph1.createRun();
         titleRun1.setColor("000000");
@@ -77,7 +76,7 @@ public class IndexController {
         titleRun1.setFontSize(18);
         titleRun1.setText("XX事项", 0);
 
-        XWPFParagraph userInfoParagraph2 = doc.createParagraph();
+        XWPFParagraph userInfoParagraph2 = document.createParagraph();
         userInfoParagraph2.setAlignment(ParagraphAlignment.LEFT);
         XWPFRun noRun = createByParam(userInfoParagraph2, 12, "宋体", null);
         noRun.setText("他隔热隔热");
@@ -104,7 +103,7 @@ public class IndexController {
         httpServletResponse.setHeader("Content-disposition", "attachment;filename=" + fileName);
         httpServletResponse.flushBuffer();
         OutputStream outputStream = httpServletResponse.getOutputStream();
-        doc.write(outputStream);
+        document.write(outputStream);
         outputStream.flush();
         outputStream.close();
 

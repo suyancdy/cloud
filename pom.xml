@@ -7,7 +7,6 @@
         <module>basicdata</module>
         <module>peopleManage</module>
         <module>zuul</module>
-        <module>config</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
