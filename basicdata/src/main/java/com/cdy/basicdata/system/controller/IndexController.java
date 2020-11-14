@@ -1,6 +1,7 @@
 package com.cdy.basicdata.system.controller;
 
 
+import com.cdy.basicdata.common.configuration.AppInfoConfig;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -10,10 +11,12 @@ import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -31,6 +34,22 @@ import java.io.OutputStream;
 @Controller
 @RequestMapping("/index")
 public class IndexController {
+
+    @Autowired
+    private AppInfoConfig appInfoConfig;
+
+    @RequestMapping("/1")
+    @ResponseBody
+    public String test(){
+
+        log.info("---: {}", appInfoConfig.toString());
+
+        return  "1";
+    }
+
+
+
+
     /**
      * 设置
      *

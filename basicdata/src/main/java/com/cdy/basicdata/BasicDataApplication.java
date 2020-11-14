@@ -1,8 +1,10 @@
 package com.cdy.basicdata;
 
+import com.cdy.basicdata.common.configuration.AppInfoConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 //import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import tk.mybatis.spring.annotation.MapperScan;
 
 /**
