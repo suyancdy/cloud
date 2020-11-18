@@ -25,7 +25,7 @@ public class SwaggerConfig {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
-                .groupName("社会治理")
+                .groupName("cdy-basicdata")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.cdy.basicdata"))
                 .paths(PathSelectors.any())
@@ -34,8 +34,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("社会治理-庆阳项目")
-                .description("社会治理-庆阳项目")
+                .title("cdy-basicdata")
+                .description("cdy-basicdata")
                 .termsOfServiceUrl("https://docs.min.io/cn")
                 .contact(new Contact("Hope", "http", "xx.com"))
                 .version("1.0")
