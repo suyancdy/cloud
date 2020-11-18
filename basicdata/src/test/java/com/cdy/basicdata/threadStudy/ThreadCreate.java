@@ -25,6 +25,7 @@ public class ThreadCreate {
             }
         }.start();
         // 启动实现Runnable接口的任务
+        //
         new Thread(new R()).start();
         // 启动实现Runnable匿名实现类的任务
         new Thread(new Runnable() {
@@ -43,6 +44,11 @@ public class ThreadCreate {
         log.info("Callable的任务的返回值是：{}", stringFutureTask.get());
     }
 }
+
+/**
+ * 使用继承Thread类的方法来创建线程（类）时，
+ * 多线程之间无法共享线程（类）的实例变量
+ */
 @Slf4j
 class T extends Thread {
     @Override
@@ -50,6 +56,10 @@ class T extends Thread {
         log.info("我是继承Thread的任务");
     }
 }
+
+/**
+ * 
+ */
 @Slf4j
 class R implements Runnable {
     @Override
