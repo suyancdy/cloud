@@ -16,10 +16,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ThreadLifecycle {
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws Exception{
 
-        ThreadLifecycle.newAndRunnable();
-        log.info("---");
+       // ThreadLifecycle.newAndRunnable();
+        ThreadLifecycle.runningAndBlocked();
+        log.info("=== 主线程结束");
     }
 
 
@@ -39,8 +40,8 @@ public class ThreadLifecycle {
             }
             log.info("休眠5秒结束");
         });
-        /*  当线程对象调用了start()方法之后，该线程处于就绪状态，
-        Java虚拟机会为其创建方法调用栈和程序技术器，处于这个状态中的线程并没有开始运行，
+        /**  当线程对象调用了start()方法之后，该线程处于就绪状态，
+        Java虚拟机会为其创建方法调用栈和程序计数器，处于这个状态中的线程并没有开始运行，
         只是表示该线程可以运行了。至于线程何时开始运行，取决于JVM里线程调度器的调度。
             调用线程的对象的start()方法之后，该线程立即进入就绪状态->就绪状态相当于“等待执行”，
         线程并未真正进入运行状态
@@ -48,22 +49,22 @@ public class ThreadLifecycle {
          */
 //        t.start();
 
-        /*只能对新建状态的线程调用start()方法，否则将触发IllegalThreadStateException异常
+        /**只能对新建状态的线程调用start()方法，否则将触发IllegalThreadStateException异常
          */
 //         t.start();
 
         for (int i = 0; i < 100; i++) {
             if (50 == i) {
-                Thread.sleep(0);
+                Thread.sleep(1000*1);
                 t.start();
             }
             log.info("当前的i的值为： {}", i);
         }
     }
 
-    // 运行和死亡状态
-    public static void runningAndBlocked(){
-        /*  如果处于就绪的状态的线程获得了CPU，开始执行run()方法的线程执行体，则该线程处于运行状态。
+    // 运行和阻塞状态
+    public static void runningAndBlocked() throws Exception{
+        /** 如果处于就绪的状态的线程获得了CPU，开始执行run()方法的线程执行体，则该线程处于运行状态。
          如果计算机只有一个CPU，那么在任何时刻只有一个线程处于运行状态。当然在一个多核处理器的机器上，
          将会有多个线程并行，当线程数大于处理数时，依然会存在多个线程在同一CPU上轮换的现象。
             当一个线程开始运行后，它不可能一直处于运行状态，线程的运行过程中需要被中断，目的是使其它线程获得
@@ -83,7 +84,8 @@ public class ThreadLifecycle {
             1.调用sleep()方法的线程经过了指定的时间
             2.线程调用的阻塞式IO方法已经返回。
             3.线程成功地获得了试图取得的同步监视器。
-            4.线程正在等待某个
+            4.线程正在等待某个通知时，其他线程发出了一个通知
+            5.处于挂起状态的线程被调用了resume()恢复方法
          */
 
         Thread t = new Thread(() -> {
@@ -96,8 +98,32 @@ public class ThreadLifecycle {
             log.info("休眠5秒结束");
         });
 
+        /**
+         * 线程从阻塞状态只能进入就绪状态，无法直接进入运行状态。
+         * 而就绪和运行状态之间的转换通常不受程序控制，而是由系统线程调度所确定，
+         * 当处于就绪状态的线程获得处理器资源时，该线程进入运行状态；
+         * 当处于运行状态的线程使其处理器资源时，该线程进入就绪状态。
+         * 但由一个方法例外，调用yield()方法可以让运行状态的线程进入就绪状态
+         */
 
+        /** 线程死亡*/
+        /**
+         * 线程会以如下三种方式结束，结束后就进入死亡状态
+         * 1、run()或call()方法执行结束，线程正常结束
+         * 2、线程抛出一个未捕获的Exception或Error
+         * 3、直接调用该线程的stop()来结束该线程 ->该方法容易导致出现死锁，不建议使用
+         */
+
+        t.start();
+
+        log.info("线程t的当前状态是否死亡: {}", !t.isAlive());
+        // 让主线程睡眠10秒，此时线程t已经死亡
+        Thread.sleep(10*1000);
+        log.info("线程t的当前状态是否死亡: {}", !t.isAlive());
     }
+
+
+
 
 
 

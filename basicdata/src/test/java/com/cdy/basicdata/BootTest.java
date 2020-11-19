@@ -7,11 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
-
-import javax.annotation.Resource;
-import javax.jws.soap.SOAPBinding;
 
 /**
  * @Description:
@@ -31,20 +26,10 @@ public class BootTest {
 
     @Test
     public void test() throws Exception {
-//         redisUtils.set("name", "xiahua");
-
-        // redisTemplate.setValueSerializer(new StringRedisSerializer());
-
-//        User user = (User) redisUtils.get("my");
-//        log.info("user: {}", user.toString());
-//
         User user = new User(1, "123", "哈哈哈哈哈哈", 12);
-
         redisUtils.set("my", user);
-
-
-//        String o = (String) redisUtils.get("my");
         User u = (User) redisUtils.get("my");
+        log.info("===：{}", user.equals(u));
         log.info("===: {}", u.toString());
 
     }
