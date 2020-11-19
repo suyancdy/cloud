@@ -38,7 +38,7 @@ public class IndexController {
     @Autowired
     private AppInfoConfig appInfoConfig;
 
-    @RequestMapping("/1")
+    @RequestMapping(value = "/1", method = RequestMethod.GET)
     @ResponseBody
     public String test(){
 
