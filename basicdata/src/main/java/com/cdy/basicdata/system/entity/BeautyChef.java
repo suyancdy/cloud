@@ -16,13 +16,15 @@ public class BeautyChef {
     // 昵称
     private String nickname;
 
-    // 头像地址
-    private String avatarUrl;
+
 
     // 真实姓名
     private String name;
 
     //
+
+    // 头像地址
+    private String avatarUrl;
 
 
 }

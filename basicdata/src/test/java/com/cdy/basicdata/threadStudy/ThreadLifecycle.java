@@ -19,12 +19,16 @@ public class ThreadLifecycle {
     public static void main(String[] args) throws Exception{
 
        // ThreadLifecycle.newAndRunnable();
-        ThreadLifecycle.runningAndBlocked();
+//        ThreadLifecycle.runningAndBlocked();
+        ThreadLifecycle.controlThread();
         log.info("=== 主线程结束");
     }
 
 
-    // 新建和就绪状态
+    /**
+     * 新建和就绪状态
+     * @throws InterruptedException
+     */
     public static void newAndRunnable() throws InterruptedException {
         /**当程序使用new关键字创建一个线程之后，
         该线程就处于新建状态，此时他和其他的Java对象一样，
@@ -62,7 +66,10 @@ public class ThreadLifecycle {
         }
     }
 
-    // 运行和阻塞状态
+    /**
+     * 运行和阻塞状态
+     * @throws Exception
+     */
     public static void runningAndBlocked() throws Exception{
         /** 如果处于就绪的状态的线程获得了CPU，开始执行run()方法的线程执行体，则该线程处于运行状态。
          如果计算机只有一个CPU，那么在任何时刻只有一个线程处于运行状态。当然在一个多核处理器的机器上，
@@ -117,9 +124,94 @@ public class ThreadLifecycle {
         t.start();
 
         log.info("线程t的当前状态是否死亡: {}", !t.isAlive());
-        // 让主线程睡眠10秒，此时线程t已经死亡
+        // 让主线程睡眠10秒，此时10秒后线程t已经死亡
         Thread.sleep(10*1000);
         log.info("线程t的当前状态是否死亡: {}", !t.isAlive());
+        /**
+         * 当主线程结束时，其他线程不受任何影响，并不会随之结束。
+         * 一旦子线程启动起来，它就拥有和主线程相同的地位，它不受主线程的影响
+         */
+        /**
+         * 不要试图对一个已经死亡的线程调用start()方法使其重新启动，死亡就是死亡，该线程将不可再次作为线程执行
+         * 对新建状态的线程两次调用start()方法也是错误的
+         */
+    }
+
+    /**
+     * 控制线程
+     */
+    public static void controlThread() throws InterruptedException {
+
+        Thread thread = new Thread(() ->{
+            log.info("我是Runnable的lambda简化后的任务");
+            // 让线程睡眠5秒
+            try {
+//                for (int i = 0; i < 100; i++) {
+//                    log.info("当前线程: {}, i的值为: {}", Thread.currentThread().getName(), i);
+//                }
+                Thread.sleep(1000*5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.info("我是Runnable的lambda简化后的任务结束");
+        });
+
+
+        /**
+         * 线程的插队
+         */
+        for (int i = 0; i < 100; i++) {
+            if (i == 20){
+                thread.start();
+                /**
+                 * main线程调用了thread线程的join方法
+                 * main线程必须等待thread线程执行结束才向下执行
+                 *
+                 * join()方法的主要作用就是同步，它可以使得线程之间的并行执行变成串行执行。
+                 * 在A线程调用了B线程的join()方法时，表示只有当B线程执行完毕时，A线程才能继续执行。
+                 *
+                 * join()方法中如果传入参数，则表示这样的含义：
+                 * 如果A线程中调用了B线程的join(10)方法，则表示A线程会等待B线程执行10毫秒，10毫秒后，A，B线程并行执行。
+                 * jdk规定，join(0)表示A线程无限等待至B线程执行结束，即join()等价于join(0)
+                 *
+                 * join()方法必须在线程start方法调用之后才有意义
+                 */
+                thread.join();
+            }
+            log.info("当前线程: {}, i的值为: {}", Thread.currentThread().getName(), i);
+        }
+
+        /**
+         * 守护线程
+         */
+        /**
+         * 守护线程在后台运行，它的任务是为其他线程提供服务，这种线程被称为Daemon thread, JVM的垃圾回收就是典型的守护线程
+         * 守护线程有个特征：如果所有的前台线程都死亡，守护线程会自动死亡
+         *
+         * 调用Thread的setDaemon(true)可以可将指定线程设置为守护线程
+         * 调用线程的isDaemon()用来判断是否是守护线程
+         *
+         * 前台线程死亡时，JVM会通知后台线程死亡，但从它接收到指令做出响应，需要一定的时间。
+         * 而且要将某个线程设置为后台线程，必须在该线程启动之前设置，即setDaemon(true)必须在start()方法之前调用
+         */
+
+
+        /**
+         * 线程睡眠： sleep
+         */
+
+        /**
+         * 线程让步： yield
+         */
+        /**
+         * 可以让当前正在执行的线程暂停，但它不会阻塞该线程，他只是将该线程转入就绪状态
+         * yield()只是让线程暂停一下，让系统的线程调度器重新调度一次
+         */
+
+        /**
+         * 改变线程的优先级
+         */
+
     }
 
 
