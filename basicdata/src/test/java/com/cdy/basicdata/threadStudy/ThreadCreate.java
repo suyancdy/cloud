@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 /**
- * @Description
+ * @Description 线程的创建
  * @Author: chendeyin
  * @Date: 2020/9/21 14:13
  * @See: com.cdy.basicdata
