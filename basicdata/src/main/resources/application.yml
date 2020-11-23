@@ -32,7 +32,7 @@ mybatis:
 #
 #eureka:
 #  instance:
-#    hostname: http://192.168.0.151:20001
+#    hostname: http://127.0.0.1
 #  client:
 #    service-url:
 #      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
