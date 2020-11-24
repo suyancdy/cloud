@@ -114,7 +114,7 @@ class Account {
      * 然后进入draw()方法执行取钱操作->这样也可以保证多个线程并发取钱的线程安全
      *
      */
-    public  synchronized  void draw(BigDecimal drawAmount) {
+    public /* synchronized */ void draw(BigDecimal drawAmount) {
 
         if (this.balance.compareTo(drawAmount) == 1) {
             try {

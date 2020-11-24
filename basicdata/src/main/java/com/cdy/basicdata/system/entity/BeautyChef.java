@@ -7,6 +7,7 @@ package com.cdy.basicdata.system.entity;
  */
 
 public class BeautyChef {
+
     // 主键
     private Integer id;
 
@@ -15,8 +16,6 @@ public class BeautyChef {
 
     // 昵称
     private String nickname;
-
-
 
     // 真实姓名
     private String name;
