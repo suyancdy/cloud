@@ -16,6 +16,6 @@ public class FileStudy {
         log.info("===文件的名字：{}", file.getName());
         log.info("===绝对路径名: {}", file.getPath());
         log.info("===绝对路径:{}", file.getAbsoluteFile());
-        log.info("===");
+        log.info("===绝对路劲名: {}", file.getAbsolutePath());
     }
 }

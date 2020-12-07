@@ -32,10 +32,10 @@ public class MyServer {
     public static List<Socket> socketList = Collections.synchronizedList(new ArrayList<>());
 
     public static void main(String[] args)  throws Exception{
-        t1();
+        startServer();
     }
 
-    public static void t1() throws Exception {
+    public static void startServer() throws Exception {
         int port = 8520;
         ServerSocket serverSocket = new ServerSocket(port);
         log.info("新建一个ServerSocket，端口号为：{}", port);

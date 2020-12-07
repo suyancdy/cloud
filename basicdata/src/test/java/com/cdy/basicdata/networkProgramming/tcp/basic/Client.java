@@ -20,14 +20,15 @@ import java.net.Socket;
 @Slf4j
 public class Client {
     public static void main(String[] args) throws Exception {
-        for (int i = 0; i < 100; i++) {
-            log.info("===: {}", i);
-            t1();
-        }
+//        for (int i = 0; i < 100; i++) {
+//            log.info("===: {}", i);
+//
+//        }
+        t1();
     }
     public static void t1() throws Exception{
-        String ip = "127.0.0.1";
-        int port = 8520;
+        String ip = "111.11.173.230";
+        int port = 9040;
 //        Socket socket = new Socket(ip, port); // important
 //        // 设置1秒后即认为超时
 //        int timeout = 1*1000;
@@ -36,10 +37,10 @@ public class Client {
         Socket socket1 = new Socket();
         socket1.connect(new InetSocketAddress(ip,port), 1*1000);
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
-        String line = bufferedReader.readLine();
-        log.info("来自服务器的消息为： {}", line);
-        bufferedReader.close();
+//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket1.getInputStream()));
+//        String line = bufferedReader.readLine();
+//        log.info("来自服务器的消息为： {}", line);
+//        bufferedReader.close();
         socket1.close();
     }
 
