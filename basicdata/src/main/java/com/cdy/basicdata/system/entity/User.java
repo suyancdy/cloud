@@ -1,6 +1,7 @@
 package com.cdy.basicdata.system.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * @Description:
@@ -14,6 +15,7 @@ public class User {
     private String userNo;
     private String name;
     private Integer age;
+
 
     public User() {
     }

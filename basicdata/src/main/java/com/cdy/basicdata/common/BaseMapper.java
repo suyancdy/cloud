@@ -10,5 +10,5 @@ import tk.mybatis.mapper.common.MySqlMapper;
  * @See: com.cestc.basicdata.common
  * @Modified:
  */
-public interface BaseMapper<T> extends Mapper<T>, MySqlMapper {
+public interface BaseMapper<T> extends Mapper<T>, MySqlMapper<T> {
 }

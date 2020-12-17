@@ -31,7 +31,8 @@ public class Singleton2 {
     }
 
     public void showMessage(){
-      log.info("===: Singleton2");
+        log.info("===: Singleton2");
+
     }
 
 }
