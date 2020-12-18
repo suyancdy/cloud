@@ -13,10 +13,7 @@ import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -26,12 +23,11 @@ import java.io.OutputStream;
  * @Description:
  * @Author: chendeyin
  * @Date: 2020/9/9 14:14
- * @See: com.cestc.basicdata.system.controller
  * @Modified:
  */
 @Api(tags = "主页")
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/index")
 public class IndexController {
 

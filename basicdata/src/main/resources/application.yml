@@ -1,5 +1,5 @@
 server:
-  port: 520
+  port: 15200
 spring:
   application:
     name: chendeyin-cloud-basicdata  # 服务间调用所使用的名称
