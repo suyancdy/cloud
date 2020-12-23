@@ -1,5 +1,10 @@
 package com.cdy.basicdata.designPatterns.abstractFactory;
 
+import com.cdy.basicdata.system.entity.Dishes;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.Arrays;
+
 /**
  * 前面介绍的工厂方法模式中考虑的是一类产品的生产，如畜牧场只养动物、电视机厂只生产电视机、计算机软件学院只培养计算机软件专业的学生等
  *
@@ -9,11 +14,19 @@ package com.cdy.basicdata.designPatterns.abstractFactory;
  * 本节要介绍的抽象工厂模式将考虑多等级产品的生产，将同一个具体工厂所生产的位于不同等级的一组产品称为一个产品族
  *
  * 定义与特点：
- *     定义：是一种为
+ *     定义：是一种为访问类提供一个创建一组相关或相互依赖对象的接口，且
  *   1、
  * @Description:
  * @Author: chendeyin
  * @Date: 2020/12/18 16:50
  */
 public class App {
+
+    public static void main(String[] args) {
+        Dishes dishes = new Dishes();
+        dishes.setId(1);
+        dishes.setDishesName("方式发");
+
+    }
+
 }

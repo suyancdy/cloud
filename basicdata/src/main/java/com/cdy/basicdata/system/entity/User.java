@@ -12,12 +12,21 @@ import lombok.experimental.Accessors;
 public class User {
 
     private Integer id;
+
     private String userNo;
+
     private String name;
+
     private Integer age;
 
 
     public User() {
+    }
+
+    public User(Integer id, String userNo, String name) {
+        this.id = id;
+        this.userNo = userNo;
+        this.name = name;
     }
 
     public User(Integer id, String userNo, String name, Integer age) {
