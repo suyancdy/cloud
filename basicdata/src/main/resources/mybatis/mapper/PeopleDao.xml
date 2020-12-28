@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cdy.basicdata.system.mapper.PeopleMapper">
+    <resultMap id="HeatingRoomTempMap" type="com.cesec.springboot.system.entity.HeatingRoomTemp">
+        <id column="id" property="id"/>
+        <result column="heating_room_id" property="heatingRoomId"/>
+        <result column="check_date" property="checkDate"/>
+        <result column="check_time" property="checkTime"/>
+        <result column="user_id" property="userId"/>
+        <result column="check_person" property="checkPerson"/>
+        <result column="temp" property="temp"/>
+        <result column="temp_normal" property="tempNormal"/>
+        <result column="picture_list_json" property="pictureListJson"/>
+        <result column="video_list_json" property="videoListJson"/>
+        <result column="is_newest" property="isNewest"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="is_delete" property="isDelete"/>
+        <result column="version" property="version"/>
+    </resultMap>
+    <insert id="insertOne"
+            parameterType="com.cesec.springboot.system.entity.HeatingRoomTemp"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        insert into heating_room_temp
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="heatingRoomId!=null">heating_room_id,</if>
+            <if test="checkDate!=null">check_date,</if>
+            <if test="checkTime!=null">check_time,</if>
+            <if test="userId!=null">user_id,</if>
+            <if test="checkPerson!=null and checkPerson!=''">check_person,</if>
+            <if test="temp!=null">temp,</if>
+            <if test="tempNormal!=null">temp_normal,</if>
+            <if test="pictureListJson!=null and pictureListJson!=''">picture_list_json,</if>
+            <if test="videoListJson!=null and videoListJson!=''">video_list_json,</if>
+            <if test="isNewest!=null">is_newest,</if>
+            <if test="createBy!=null">create_by,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="heatingRoomId!=null">#{heatingRoomId},</if>
+            <if test="checkDate!=null">#{checkDate},</if>
+            <if test="checkTime!=null">#{checkTime},</if>
+            <if test="userId!=null">#{userId},</if>
+            <if test="checkPerson!=null and checkPerson!=''">#{checkPerson},</if>
+            <if test="temp!=null">#{temp},</if>
+            <if test="tempNormal!=null">#{tempNormal},</if>
+            <if test="pictureListJson!=null and pictureListJson!=''">#{pictureListJson},</if>
+            <if test="videoListJson!=null and videoListJson!=''">#{videoListJson},</if>
+            <if test="isNewest!=null">#{isNewest},</if>
+            <if test="createBy!=null">#{createBy},</if>
+        </trim>
+    </insert>
+
+
+
+
+
+</mapper>

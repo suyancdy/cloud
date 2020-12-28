@@ -1,5 +1,7 @@
 package com.cdy.basicdata.designPatterns.builderPattern;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +34,25 @@ import java.util.List;
  * @Author: chendeyin
  * @Date: 2020/12/20 14:41
  */
+@Slf4j
 public class App {
+    public static void main(String[] args) {
+        Builder builder = new Builder();
+        // 豪华欧式
+        DecorationPackageMenu decorationPackageMenu = (DecorationPackageMenu) builder.levelOne(132.52d);
+        log.info("物料清单为：{}", decorationPackageMenu.getDetail());
+
+        // 轻奢田园
+        DecorationPackageMenu decorationPackageMenu1 = (DecorationPackageMenu)builder.levelTwo(98.25);
+        log.info("物料清单为：{}",decorationPackageMenu1.getDetail());
+
+        DecorationPackageMenu decorationPackageMenu2 = (DecorationPackageMenu)builder.levelThree(85.43);
+        log.info("物料清单为：{}", decorationPackageMenu2.getDetail());
+
+
+
+    }
+
 
 }
 
@@ -54,6 +74,8 @@ interface IMenu {
 }
 
 // 装修包的实现
+
+@Slf4j
 class DecorationPackageMenu implements IMenu {
 
     // 装修清单
@@ -65,34 +87,104 @@ class DecorationPackageMenu implements IMenu {
     // 装修面积
     private BigDecimal area;
 
+    // 装修等级
+    private String grade;
 
-//    private String
+    public DecorationPackageMenu() {
+    }
 
+    public DecorationPackageMenu(BigDecimal area, String grade) {
+        this.area = area;
+        this.grade = grade;
+    }
 
+    // 吊顶
     @Override
     public IMenu appendCeiling(Matter matter) {
-        return null;
+        matterList.add(matter);
+        price = price.add(area.multiply(new BigDecimal("0.2")).multiply(matter.price()));
+        return this;
     }
 
+    // 涂料
     @Override
     public IMenu appendCoat(Matter matter) {
-        return null;
+        matterList.add(matter);
+        price = price.add(area.multiply(new BigDecimal("1.4")).multiply(matter.price()));
+        return this;
     }
 
+    // 地板
     @Override
     public IMenu appendFloor(Matter matter) {
-        return null;
+        matterList.add(matter);
+        price = price.add(area.multiply(matter.price()));
+        return this;
     }
 
+    // 地砖
     @Override
     public IMenu appendTile(Matter matter) {
-        return null;
+        matterList.add(matter);
+        price = price.add(area.multiply(matter.price()));
+        return this;
     }
 
     @Override
     public String getDetail() {
-        return null;
+
+        StringBuilder detail = new StringBuilder("\r\n---------------\r\n" +
+                "装修清单" + "\r\n" +
+                "套餐等级" + grade + "\r\n" +
+                "套餐价格" + price.setScale(2, BigDecimal.ROUND_HALF_UP) + "员\r\n" +
+                "房屋面积" + area.doubleValue() + "平米\r\n" +
+                "材料清单\r\n");
+
+        for (Matter matter : matterList) {
+            detail.append(matter.scene())
+                    .append(":")
+                    .append(matter.brand())
+                    .append("、")
+                    .append(matter.model())
+                    .append("、平米价格：")
+                    .append(matter.price())
+                    .append("元。\n");
+        }
+        return detail.toString();
     }
+}
+
+
+/**
+ *
+ */
+@Slf4j
+class Builder {
+    public IMenu levelOne(Double area) {
+        DecorationPackageMenu decorationPackageMenu = new DecorationPackageMenu(new BigDecimal(area), "豪华欧式");
+        decorationPackageMenu.appendCeiling(new LevelTwoCeiling()); // 二级顶
+        decorationPackageMenu.appendCoat(new DuluxCoat()); // 多乐士
+        decorationPackageMenu.appendFloor(new ShengXiangFloor()); // 圣象
+        return decorationPackageMenu;
+    }
+
+    public IMenu levelTwo(Double area) {
+        DecorationPackageMenu decorationPackageMenu = new DecorationPackageMenu(new BigDecimal(area), "轻奢田园");
+        decorationPackageMenu.appendCeiling(new LevelTwoCeiling()); // 二级顶
+        decorationPackageMenu.appendCoat(new LiBangCoat()); // 立邦
+        decorationPackageMenu.appendCoat(new MarcoPoloTile()); // 马可波罗
+        return decorationPackageMenu;
+    }
+
+    public IMenu levelThree(Double area) {
+        DecorationPackageMenu decorationPackageMenu = new DecorationPackageMenu(new BigDecimal(area), "现代简约");
+        decorationPackageMenu.appendCeiling(new LevelOneCeiling()); // 一级顶
+        decorationPackageMenu.appendCoat(new LiBangCoat()); // 立邦
+        decorationPackageMenu.appendTile(new DongPengTile()); // 东鹏
+        return decorationPackageMenu;
+    }
+
+
 }
 
 

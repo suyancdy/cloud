@@ -2,7 +2,7 @@ server:
   port: 15200
 spring:
   application:
-    name: chendeyin-cloud-basicdata  # 服务间调用所使用的名称
+    name: cloud-basicdata-chendeyin  # 服务间调用所使用的名称
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cloud_test?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8
