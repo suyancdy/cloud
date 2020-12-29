@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
@@ -20,7 +21,23 @@ import java.util.Scanner;
  * @Date: 2020/12/28 14:45
  */
 
+@Slf4j
 public class CodeGenerator {
+
+
+//    @Value("${spring.datasource.driver-class-name}")
+//    private String driverClassName;
+
+
+
+    public static void main(String[] args) {
+        // 开始生成代码
+//        String projectPath = System.getProperty("user.dir");
+//        log.info("当前项目的路径为: {}", projectPath);
+         autoGenerator();
+
+
+    }
 
     /**
      * <p>
@@ -30,7 +47,7 @@ public class CodeGenerator {
     public static String scanner(String tip) {
         Scanner scanner = new Scanner(System.in);
         StringBuilder help = new StringBuilder();
-        help.append("请输入" + tip + "：");
+        help.append("请输入" + tip + ":");
         System.out.println(help.toString());
         if (scanner.hasNext()) {
             String ipt = scanner.next();
@@ -41,36 +58,53 @@ public class CodeGenerator {
         throw new MybatisPlusException("请输入正确的" + tip + "！");
     }
 
-    public static void main(String[] args) {
+    public static void autoGenerator() {
         // 代码生成器
-        AutoGenerator mpg = new AutoGenerator();
+        AutoGenerator autoGenerator = new AutoGenerator();
 
         // 全局配置
-        GlobalConfig gc = new GlobalConfig();
+        GlobalConfig globalConfig = new GlobalConfig();
+        // 获取当前项目的路径
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("jobob");
-        gc.setOpen(false);
-        // gc.setSwagger2(true); 实体属性 Swagger2 注解
-        mpg.setGlobalConfig(gc);
+        log.info("当前项目的路径为: {}", projectPath);
+        // 设置类输出的路径
+
+        String childModule = scanner("子工程");
+
+        globalConfig.setOutputDir(projectPath + "/" + childModule + "/src/main/java");
+
+        globalConfig.setAuthor("chendeyin"); // 设置作者
+
+        globalConfig.setOpen(false); // 是否生成完成后打开资源管理器
+
+//        globalConfig.setDateType(DateType.ONLY_DATE);   // 日期类型的字段使用哪个类型，默认是 java8的 日期类型，此处改为 java.util.date
+
+//        globalConfig.setBaseColumnList(true); // mapper.xml 是否生成 ColumnList，默认 false 不生成
+
+        globalConfig.setBaseResultMap(true); // mapper.xml 是否生成 ResultMap，默认 false 不生成
+
+        globalConfig.setFileOverride(false);  // 是否覆盖 已存在文件，默认 false 不覆盖
+
+        // globalConfig.setSwagger2(true); // 实体属性 Swagger2 注解
+        autoGenerator.setGlobalConfig(globalConfig);
 
         // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/ant?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        DataSourceConfig dataSourceConfig = new DataSourceConfig();
+        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/cloud_test?serverTimezone=Asia/Shanghai&useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("密码");
-        mpg.setDataSource(dsc);
+        dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
+        dataSourceConfig.setUsername("root");
+        dataSourceConfig.setPassword("123456");
+        autoGenerator.setDataSource(dataSourceConfig);
 
         // 包配置
-        PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.baomidou.ant");
-        mpg.setPackageInfo(pc);
+        PackageConfig packageConfig = new PackageConfig();
+        //  pc.setModuleName(scanner("模块名"));
+        packageConfig.setParent("com.cdy.basicdata.system");
+        autoGenerator.setPackageInfo(packageConfig);
 
         // 自定义配置
-        InjectionConfig cfg = new InjectionConfig() {
+        InjectionConfig injectionConfig = new InjectionConfig() {
             @Override
             public void initMap() {
                 // to do nothing
@@ -83,18 +117,18 @@ public class CodeGenerator {
         // String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
-        List<FileOutConfig> focList = new ArrayList<>();
+        List<FileOutConfig> fileOutConfigList = new ArrayList<>();
         // 自定义配置会被优先输出
-        focList.add(new FileOutConfig(templatePath) {
+        fileOutConfigList.add(new FileOutConfig(templatePath) {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+                return projectPath + "/src/main/resources/mybatis/mapper/" + packageConfig.getModuleName()
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
         /*
-        cfg.setFileCreate(new IFileCreate() {
+        injectionConfig.setFileCreate(new IFileCreate() {
             @Override
             public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
                 // 判断自定义文件夹是否需要创建
@@ -108,8 +142,8 @@ public class CodeGenerator {
             }
         });
         */
-        cfg.setFileOutConfigList(focList);
-        mpg.setCfg(cfg);
+        injectionConfig.setFileOutConfigList(fileOutConfigList);
+        autoGenerator.setCfg(injectionConfig);
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
@@ -121,24 +155,26 @@ public class CodeGenerator {
         // templateConfig.setController();
 
         templateConfig.setXml(null);
-        mpg.setTemplate(templateConfig);
+        autoGenerator.setTemplate(templateConfig);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
+        // 表前缀，配置后 生成的的代码都会把前缀去掉
+//        strategy.setTablePrefix("dev_");
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");
+        // strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
         // 公共父类
-        strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
+        // strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         // 写于父类中的公共字段
         strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
-        mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-        mpg.execute();
+        strategy.setTablePrefix(packageConfig.getModuleName() + "_");
+        autoGenerator.setStrategy(strategy);
+        autoGenerator.setTemplateEngine(new FreemarkerTemplateEngine());
+        autoGenerator.execute();
     }
 }

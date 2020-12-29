@@ -1,13 +1,16 @@
 package com.cdy.basicdata.system.mapper;
 
-import org.springframework.stereotype.Repository;
+import com.cdy.basicdata.system.entity.People;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * @Description:
- * @Author: chendeyin
- * @Date: 2020/12/28 14:12
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author chendeyin
+ * @since 2020-12-29
  */
-@Repository
-public interface PeopleMapper {
+public interface PeopleMapper extends BaseMapper<People> {
 
 }
