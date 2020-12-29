@@ -1,10 +1,15 @@
 package com.cdy.basicdata.system.service.impl;
 
+import com.cdy.basicdata.system.domain.param.PageParam;
 import com.cdy.basicdata.system.entity.People;
 import com.cdy.basicdata.system.mapper.PeopleMapper;
 import com.cdy.basicdata.system.service.IPeopleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,7 +19,17 @@ import org.springframework.stereotype.Service;
  * @author chendeyin
  * @since 2020-12-29
  */
+@Slf4j
 @Service
-public class PeopleServiceImpl extends ServiceImpl<PeopleMapper, People> implements IPeopleService {
+public class PeopleServiceImpl implements IPeopleService {
 
+    @Autowired
+    private PeopleMapper peopleMapper;
+
+    @Override
+    public List<People> listByParams(PageParam pageParam) {
+        pageParam.setOffSet();
+        log.info("条件列表查询的参数为: {}", pageParam.toString());
+        return peopleMapper.listByParams(pageParam);
+    }
 }

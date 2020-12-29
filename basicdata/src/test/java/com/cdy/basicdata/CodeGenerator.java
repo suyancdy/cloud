@@ -83,7 +83,7 @@ public class CodeGenerator {
 
         globalConfig.setBaseResultMap(true); // mapper.xml 是否生成 ResultMap，默认 false 不生成
 
-        globalConfig.setFileOverride(false);  // 是否覆盖 已存在文件，默认 false 不覆盖
+        globalConfig.setFileOverride(true);  // 是否覆盖 已存在文件，默认 false 不覆盖
 
         // globalConfig.setSwagger2(true); // 实体属性 Swagger2 注解
         autoGenerator.setGlobalConfig(globalConfig);
@@ -123,7 +123,7 @@ public class CodeGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/mybatis/mapper/" + packageConfig.getModuleName()
+                return projectPath + "/"  + childModule +   "/src/main/resources/mybatis/mapper/" + packageConfig.getModuleName()
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
@@ -169,7 +169,7 @@ public class CodeGenerator {
         // 公共父类
         // strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         // 写于父类中的公共字段
-        strategy.setSuperEntityColumns("id");
+       // strategy.setSuperEntityColumns("id");
         strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(packageConfig.getModuleName() + "_");

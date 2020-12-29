@@ -1,7 +1,11 @@
 package com.cdy.basicdata.system.mapper;
 
+import com.cdy.basicdata.system.domain.param.PageParam;
 import com.cdy.basicdata.system.entity.People;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,6 +15,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author chendeyin
  * @since 2020-12-29
  */
-public interface PeopleMapper extends BaseMapper<People> {
+@Repository
+public interface PeopleMapper {
 
+    List<People> listByParams(PageParam pageParam);
 }
