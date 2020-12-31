@@ -13,9 +13,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class PageParam {
 
     @ApiModelProperty(required = true,value = "页数")
-    private Integer pageNum = 1;
+    private Integer pageNum = 1; // 默认为第一页
+
     @ApiModelProperty(required = true,value = "每页大小")
-    private Integer pageSize = 10;
+    private Integer pageSize = 10; // 默认每页大小为10
 
     @JsonIgnore
     private Integer offSet = (pageNum - 1) * pageSize;

@@ -22,25 +22,39 @@ import java.util.List;
  * @Modified:
  */
 @Slf4j
-@SpringBootTest
+//@SpringBootTest
 public class BootTest {
 
-    @Autowired
-    private ObjectMapper objectMapper;
+//    @Autowired
+//    private ObjectMapper objectMapper;
+//
+//    @Autowired
+//    private PeopleMapper peopleMapper;
+//
+//    @Test
+//    public void test() throws Exception {
+//        PageParam pageParam = new PageParam();
+//        pageParam.setPageNum(2);
+//        pageParam.setPageSize(3);
+//        log.info("分页参数为: {}", pageParam.toString());
+//        List<People> peopleList = peopleMapper.listByParams(pageParam);
+//        peopleList.forEach(
+//                i -> { log.info("====: {}", i.toString()); }
+//        );
+//
+//    }
 
-    @Autowired
-    private PeopleMapper peopleMapper;
 
-    @Test
-    public void test() throws Exception {
-        PageParam pageParam = new PageParam();
-        pageParam.setPageNum(2);
-        pageParam.setPageSize(3);
-        log.info("分页参数为: {}", pageParam.toString());
-        List<People> peopleList = peopleMapper.listByParams(pageParam);
-        peopleList.forEach(
-                i -> { log.info("====: {}", i.toString()); }
-        );
-
+    public static void main(String[] args) {
+        List<Integer> integerList = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            integerList.add(i);
+        }
+        if (integerList.size() > 5){
+            integerList = integerList.subList(0, 5);
+        }
+        integerList.forEach( i -> {
+            log.info("===的值为: {}", i.toString());
+        });
     }
 }

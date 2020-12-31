@@ -5,6 +5,7 @@ import com.cdy.basicdata.system.entity.People;
 import com.cdy.basicdata.system.mapper.PeopleMapper;
 import com.cdy.basicdata.system.service.IPeopleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,12 @@ public class PeopleServiceImpl implements IPeopleService {
         pageParam.setOffSet();
         log.info("条件列表查询的参数为: {}", pageParam.toString());
         return peopleMapper.listByParams(pageParam);
+    }
+
+
+    @Override
+    public PageInfo<People> pageInfoByParams(PageParam pageParam) {
+
+        return null;
     }
 }
