@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.swing.*;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,10 +20,27 @@ import java.util.Map;
 public class StoreFactoryApp {
 
     public static void main(String[] args) throws JsonProcessingException {
-
+        test();
     }
 
-    public static void test() {
+    public static void test() throws JsonProcessingException {
+        StoreFactory storeFactory = new StoreFactory();
+        // 1.优惠券
+        ICommodityService   commodityService_1 = storeFactory.getCommodityService(1);
+        commodityService_1.sendCommodity("10001",
+                "EGM1023938910232121323432","791098764902132", null);
+
+        // 2.实物商品
+        ICommodityService commodityService_2 = storeFactory.getCommodityService(2);
+        Map<String, String> extMap = new HashMap<>();
+        extMap.put("consigneeUserName", "谢菲");
+        extMap.put("consigneeUserPhone", "15111223344");
+        extMap.put("consigneeUserAddress", "甘肃省庆阳市西峰区XXX小区xxx室");
+        commodityService_2.sendCommodity("10001", "9820198721311","1023000020112221113", extMap);
+
+        // 3.第三方兑换卡
+        ICommodityService commodityService_3 = storeFactory.getCommodityService(3);
+        commodityService_3.sendCommodity("10001","AQY1xjkUodl8LO975GdfrYUio",null, null);
 
     }
 
@@ -77,7 +96,7 @@ interface ICommodityService {
                        String bziId, Map<String, String> extMap) throws JsonProcessingException;
 }
 
-
+@Slf4j
 class CouponService {
 
     public CouponResult sendCoupon(String uId, String couponNumber, String uuid) {
@@ -108,6 +127,10 @@ class CouponCommodityService implements ICommodityService {
     }
 }
 
+
+/**
+ * 实物商品的请求参数
+ */
 @Data
 class DeliverReq {
     private String userName; // 用户姓名
@@ -137,7 +160,7 @@ class DeliverReq {
 
 @Slf4j
 class GoodsService {
-    public Boolean deliverGoods(DeliverReq deliverReq){
+    public Boolean deliverGoods(DeliverReq deliverReq) {
         log.info("模拟发货实物商品一个:{}", JSON.toJSONString(deliverReq));
         return true;
     }
@@ -163,9 +186,59 @@ class GoodsCommodityService implements ICommodityService {
         deliverReq.setConsigneeUserPhone(extMap.get("consigneeUserPhone"));
         deliverReq.setConsigneeUserAddress(extMap.get("consigneeUserAddress"));
 
-//        Boolean isSuccess =
+        Boolean isSuccess = goodsService.deliverGoods(deliverReq);
+        log.info("请求参数[实物商品] => uId:{} commodityId:{} bizId:{} extMap:{}", uId, commodityId, bziId, JSON.toJSON(extMap));
+        log.info("测试结果[实物商品] : {}", isSuccess);
+        if (!isSuccess) throw new RuntimeException("实物商品发送失败");
+    }
+}
+
+
+@Slf4j
+class IQiYiCardService {
+    public void grantToken(String bindMobileNumber, String cardId) {
+        log.info("模拟发放爱奇艺会员卡一张: {}, {}", bindMobileNumber, cardId);
 
     }
+}
 
+/**
+ * 第三方兑换卡
+ */
+@Slf4j
+class CardCommodityService implements ICommodityService {
+
+    // 模拟注入
+    private IQiYiCardService iQiYiCardService = new IQiYiCardService();
+
+    @Override
+    public void sendCommodity(String uId, String commodityId, String bziId, Map<String, String> extMap) throws JsonProcessingException {
+        String mobile = queryUserMobile(uId);
+        iQiYiCardService.grantToken(mobile, bziId);
+        log.info("请求参数[爱奇艺兑换卡] => uId: {}, commodityOId: {}, bizId: {}, extMap:{}", uId, commodityId, bziId, JSON.toJSON(extMap));
+        log.info("测试结果[爱奇艺兑换卡]: success");
+    }
+
+    private String queryUserMobile(String uId) {
+        return "15111223344";
+    }
+}
+
+/**
+ * 创建商品工厂
+ */
+class StoreFactory {
+    public ICommodityService getCommodityService(Integer commodityType) {
+        if (commodityType == null) {
+            return null;
+        } else if (commodityType == 1) {
+            return new CouponCommodityService();
+        }else if (commodityType == 2){
+            return new GoodsCommodityService();
+        }else if (commodityType == 3){
+            return new CardCommodityService();
+        }
+        throw new RuntimeException("不存在的商品服务类型");
+    }
 }
 
