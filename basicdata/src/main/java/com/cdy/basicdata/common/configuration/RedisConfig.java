@@ -117,7 +117,7 @@ public class RedisConfig {
         redisTemplate.setHashKeySerializer(stringSerializer);//Hash key序列化
         redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);//Hash value序列化
         redisTemplate.afterPropertiesSet();
-        log.info("===: redisTemplate配置完成");
+        log.info("自定义redisTemplate配置完成");
         return redisTemplate;
     }
 

@@ -19,10 +19,16 @@
 
     <select id="listByParams"
             parameterType="com.cdy.basicdata.system.domain.param.PageParam"
-    resultMap="PeopleMap">
+            resultMap="PeopleMap">
         select *
         from people
-        limit #{offSet}, #{pageSize};
+        limit #{offSet}, #{pageSize}
+    </select>
+
+    <select id="getById" resultMap="PeopleMap">
+        select *
+        from people
+        where id =#{id}
     </select>
 
 

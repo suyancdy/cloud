@@ -31,9 +31,21 @@ public class PeopleServiceImpl implements IPeopleService {
     public List<People> listByParams(PageParam pageParam) {
         pageParam.setOffSet();
         log.info("条件列表查询的参数为: {}", pageParam.toString());
+
+        log.debug("---");
+
+        People people = peopleMapper.getById(1);
+
+        log.debug("---");
+
         return peopleMapper.listByParams(pageParam);
     }
 
+    @Override
+    public People getById(Integer id) {
+
+        return null;
+    }
 
     @Override
     public PageInfo<People> pageInfoByParams(PageParam pageParam) {

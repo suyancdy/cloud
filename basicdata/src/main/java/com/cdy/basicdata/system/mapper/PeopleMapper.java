@@ -19,4 +19,7 @@ import java.util.List;
 public interface PeopleMapper {
 
     List<People> listByParams(PageParam pageParam);
+
+    People getById(Integer id);
+
 }

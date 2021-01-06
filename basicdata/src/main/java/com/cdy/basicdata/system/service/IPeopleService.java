@@ -17,6 +17,7 @@ import java.util.List;
  */
 public interface IPeopleService  {
     List<People> listByParams(PageParam pageParam);
+    People getById(Integer id);
 
     PageInfo<People> pageInfoByParams(PageParam pageParam);
 }
