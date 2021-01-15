@@ -35,12 +35,12 @@ public class PeopleController {
 
     @ApiOperation("条件列表查询")
     @GetMapping("/selectListByParams")
-    public List<People> selectListByParams(@ModelAttribute PageParam pageParam){
+    public String selectListByParams(@ModelAttribute PageParam pageParam){
         log.info("条件列表查询的参数为: {}", pageParam.toString());
         log.debug("这是一个debug级别");
         log.info("这是一个info级别");
         log.warn("这是一个warn级别");
         log.error("这是一个error级别");
-        return iPeopleService.listByParams(pageParam);
+        return "success";
     }
 }

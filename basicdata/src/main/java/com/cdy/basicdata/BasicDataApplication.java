@@ -18,6 +18,7 @@ import tk.mybatis.spring.annotation.MapperScan;
 //@EnableDiscoveryClient
 @SpringBootApplication
 @MapperScan("com.cdy.basicdata.system.mapper")
+
 public class BasicDataApplication {
     public static void main(String[] args) {
         SpringApplication.run(BasicDataApplication.class,args);
