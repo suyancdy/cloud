@@ -1,7 +1,6 @@
 package com.cdy.basicdata.structurePattern.adapterPattern;
 
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.A;
 
 /**
  * @Description: 适配器模式

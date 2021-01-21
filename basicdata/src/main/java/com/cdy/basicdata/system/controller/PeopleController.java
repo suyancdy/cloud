@@ -3,18 +3,16 @@ package com.cdy.basicdata.system.controller;
 
 import com.cdy.basicdata.system.domain.param.PageParam;
 import com.cdy.basicdata.system.entity.People;
+import com.cdy.basicdata.system.kafka.KafkaProducer;
 import com.cdy.basicdata.system.service.IPeopleService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -33,6 +31,21 @@ public class PeopleController {
     @Autowired
     private IPeopleService iPeopleService;
 
+    @Autowired
+    private KafkaProducer kafkaProducer;
+
+
+    @ApiOperation("kafka测试")
+    @PostMapping(value = "/insertOne")
+    public String insertOne(@RequestBody People people) throws JsonProcessingException {
+        log.info("insertOne的入参为: {}", people.toString());
+        people.setCreateTime(LocalDateTime.now());
+        kafkaProducer.send(people);
+
+        return "success";
+    }
+
+
     @ApiOperation("条件列表查询")
     @GetMapping("/selectListByParams")
     public String selectListByParams(@ModelAttribute PageParam pageParam){
@@ -43,4 +56,5 @@ public class PeopleController {
         log.error("这是一个error级别");
         return "success";
     }
+
 }

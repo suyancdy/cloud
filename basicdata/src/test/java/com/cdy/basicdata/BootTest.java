@@ -1,15 +1,6 @@
 package com.cdy.basicdata;
 
-import com.cdy.basicdata.common.utils.RedisUtils;
-import com.cdy.basicdata.system.domain.param.PageParam;
-import com.cdy.basicdata.system.entity.People;
-import com.cdy.basicdata.system.entity.User;
-import com.cdy.basicdata.system.mapper.PeopleMapper;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;

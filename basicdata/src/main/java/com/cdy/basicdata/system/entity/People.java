@@ -2,8 +2,12 @@ package com.cdy.basicdata.system.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -34,7 +38,7 @@ public class People implements Serializable {
     /**
      * 性别
      */
-    private Boolean sex;
+    private Integer sex;
 
     /**
      * 年龄
@@ -54,17 +58,22 @@ public class People implements Serializable {
     /**
      * 创建时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
 
     /**
      * 修改时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
 
     /**
      * 是否删除
      */
-    private Boolean isDelete;
+    @JsonIgnore
+    private Integer isDelete;
 
 
 }
