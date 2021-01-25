@@ -88,10 +88,11 @@ mybatis:
 logging:
   config: classpath:logback-spring.xml
 
-#
-#eureka:
-#  instance:
-#    hostname: http://127.0.0.1
-#  client:
-#    service-url:
-#      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
+
+eureka:
+  instance:
+    hostname: 47.92.221.53
+  client:
+    service-url:
+#      defaultZone: http://47.92.221.53:8761/eureka/
+      defaultZone: http://${eureka.instance.hostname}:8761/eureka/
