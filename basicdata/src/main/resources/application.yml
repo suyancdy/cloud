@@ -31,7 +31,8 @@ spring:
   # kafka配置
   kafka:
 #    bootstrap-servers: 172.0.0.1:9092
-    bootstrap-servers: 47.92.221.53:9092
+#    bootstrap-servers: 47.92.221.53:9092
+    bootstrap-servers: 47.108.154.182:9092
     # 生产者配置
     producer:
       # 发生错误时，消息重发的次数
@@ -78,6 +79,7 @@ spring:
       ack-mode: manual_immediate
       missing-topics-fatal: false
 
+
 # mybatis的配置
 mybatis:
   configuration:
@@ -91,8 +93,7 @@ logging:
 
 eureka:
   instance:
-    hostname: 47.92.221.53
+    hostname: 127.0.0.1
   client:
     service-url:
-#      defaultZone: http://47.92.221.53:8761/eureka/
       defaultZone: http://${eureka.instance.hostname}:8761/eureka/
