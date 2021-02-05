@@ -17,7 +17,15 @@ import java.util.List;
  */
 public interface IPeopleService  {
     List<People> listByParams(PageParam pageParam);
+
     People getById(Integer id);
 
     PageInfo<People> pageInfoByParams(PageParam pageParam);
+
+    /**
+     * 修改
+     * @param people
+     * @return
+     */
+    Integer updateById(People people) throws InterruptedException;
 }

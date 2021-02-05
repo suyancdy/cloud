@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author chendeyin
@@ -21,5 +21,12 @@ public interface PeopleMapper {
     List<People> listByParams(PageParam pageParam);
 
     People getById(Integer id);
+
+    /**
+     * 修改
+     * @param people
+     * @return
+     */
+    Integer updateById(People people);
 
 }

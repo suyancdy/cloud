@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * <p>
@@ -48,13 +49,25 @@ public class PeopleController {
 
     @ApiOperation("条件列表查询")
     @GetMapping("/selectListByParams")
-    public String selectListByParams(@ModelAttribute PageParam pageParam){
+    public List<People> selectListByParams(@ModelAttribute PageParam pageParam){
         log.info("条件列表查询的参数为: {}", pageParam.toString());
-        log.debug("这是一个debug级别");
-        log.info("这是一个info级别");
-        log.warn("这是一个warn级别");
-        log.error("这是一个error级别");
-        return "success";
+        return iPeopleService.listByParams(pageParam);
+    }
+
+
+    @ApiOperation("事务测试")
+    @PutMapping(value = "/deleteById")
+    public String deleteById(@RequestParam Integer id) throws InterruptedException {
+        log.debug("事务测试的参数为: {}", id);
+        People people =  new People();
+
+        people.setId(id);
+        people.setAge(33);
+       // people.setIsDelete(1);
+         int affectedRows =  iPeopleService.updateById(people);
+
+
+        return  String.valueOf(affectedRows);
     }
 
 }

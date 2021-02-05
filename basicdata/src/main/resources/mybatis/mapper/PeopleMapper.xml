@@ -4,17 +4,33 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="PeopleMap" type="com.cdy.basicdata.system.entity.People">
-        <result column="id" property="id" />
-        <result column="people_no" property="peopleNo" />
-        <result column="name" property="name" />
-        <result column="sex" property="sex" />
-        <result column="age" property="age" />
-        <result column="create_by" property="createBy" />
-        <result column="update_by" property="updateBy" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
-        <result column="is_delete" property="isDelete" />
+        <result column="id" property="id"/>
+        <result column="people_no" property="peopleNo"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="create_by" property="createBy"/>
+        <result column="update_by" property="updateBy"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_delete" property="isDelete"/>
     </resultMap>
+
+    <insert id="insertOne"
+            parameterType="com.cdy.basicdata.system.entity.People"
+            useGeneratedKeys="true"
+            keyProperty="id">
+        insert into people
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="peopleNo!=null and peopleNo!=''">people_no,</if>
+            <if test="createBy!=null">create_by,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="peopleNo!=null and people!=''">#{peopleNo},</if>
+            <if test="createBy!=null">#{createBy},</if>
+        </trim>
+    </insert>
 
 
     <select id="listByParams"
@@ -22,14 +38,35 @@
             resultMap="PeopleMap">
         select *
         from people
-        limit #{offSet}, #{pageSize}
+        where is_delete = 0
+        limit #{offSet},
+        #{pageSize}
     </select>
 
     <select id="getById" resultMap="PeopleMap">
-        select *
+        select
+        id,
+        people_no,
+        name,
+        sex,
+        age
         from people
         where id =#{id}
     </select>
+
+    <update id="updateById"
+            parameterType="com.cdy.basicdata.system.entity.People">
+        update
+        people
+        <set>
+            <if test="peopleNo!=null and peopleNo!=''">people_no=#{peopleNo},</if>
+            <if test="name!=null and name!=''">`name`=#{name},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="age!=null">age=#{age},</if>
+            <if test="isDelete!=null">is_delete=#{isDelete},</if>
+        </set>
+        where id=#{id}
+    </update>
 
 
 </mapper>

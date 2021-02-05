@@ -88,8 +88,8 @@
 <!--        <logger name="com.cdy.basicdata" level="debug"/>-->
     </springProfile>
     <logger name="com.cdy.basicdata" level="debug"/>
-    <logger name="com.cdy.basicdata.system.mapper" level="debug">
-    </logger>
+<!--    <logger name="com.cdy.basicdata.system.mapper" level="debug">-->
+<!--    </logger>-->
 
 
     <root level="info">
