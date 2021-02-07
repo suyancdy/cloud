@@ -1,6 +1,7 @@
 package com.cdy.basicdata.system.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.cdy.basicdata.system.domain.param.PageParam;
 import com.cdy.basicdata.system.entity.People;
 import com.cdy.basicdata.system.kafka.KafkaProducer;
@@ -42,31 +43,31 @@ public class PeopleController {
         log.info("insertOne的入参为: {}", people.toString());
         people.setCreateTime(LocalDateTime.now());
         kafkaProducer.send(people);
-
         return "success";
     }
 
 
-    @ApiOperation("条件列表查询")
+    @ApiOperation("列表查询")
     @GetMapping("/selectListByParams")
     public List<People> selectListByParams(@ModelAttribute PageParam pageParam){
-        log.info("条件列表查询的参数为: {}", pageParam.toString());
+        log.debug("条件列表查询的参数为: {}", pageParam.toString());
         return iPeopleService.listByParams(pageParam);
     }
 
+    @ApiOperation("详情查询")
+    @GetMapping("/getById")
+    public People getById(@RequestParam Integer id){
+        return iPeopleService.getById(id);
+    }
 
-    @ApiOperation("事务测试")
+
+
+
+    @ApiOperation("修改编辑")
     @PutMapping(value = "/deleteById")
-    public String deleteById(@RequestParam Integer id) throws InterruptedException {
-        log.debug("事务测试的参数为: {}", id);
-        People people =  new People();
-
-        people.setId(id);
-        people.setAge(33);
-       // people.setIsDelete(1);
+    public String deleteById(@RequestBody People people) throws InterruptedException {
+        log.debug("人员修改编辑的参数为: {}", JSON.toJSONString(people));
          int affectedRows =  iPeopleService.updateById(people);
-
-
         return  String.valueOf(affectedRows);
     }
 

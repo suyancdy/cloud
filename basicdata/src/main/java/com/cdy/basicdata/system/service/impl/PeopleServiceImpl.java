@@ -39,7 +39,7 @@ public class PeopleServiceImpl implements IPeopleService {
     @Override
     public List<People> listByParams(PageParam pageParam) {
         pageParam.setOffSet();
-        log.info("条件列表查询的参数为: {}", pageParam.toString());
+        log.debug("条件列表查询的参数为: {}", pageParam.toString());
         return peopleMapper.listByParams(pageParam);
     }
 
@@ -49,19 +49,21 @@ public class PeopleServiceImpl implements IPeopleService {
      * @param id
      * @return
      */
-    @Transactional(isolation = Isolation.READ_COMMITTED)
+    @Transactional()
     @Override
     public People getById(Integer id) {
         log.debug("查询人员详情的参数: {}", id);
         People people = peopleMapper.getById(id);
-        log.debug("===: {}", JSON.toJSONString(people));
+        log.debug("人员详情为: {}", JSON.toJSONString(people));
         log.debug("睡眠12秒");
         try {
             Thread.sleep(12 * 1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        log.info("睡眠12秒结束");
+        log.debug("睡眠12秒结束");
+        People people2 = peopleMapper.getById(id);
+        log.debug("再次读取人员详情为: {}", JSON.toJSONString(people2));
         return people;
     }
 
@@ -72,11 +74,11 @@ public class PeopleServiceImpl implements IPeopleService {
     }
 
 
-    @Transactional
+    @Transactional()
     @Override
     public Integer updateById(People people) throws InterruptedException {
         int affectedRows = peopleMapper.updateById(people);
-        Thread.sleep(12 * 1000);
+     //   Thread.sleep(12 * 1000);
         //   log.debug("一个异常: {}", 1 / 0);
         return affectedRows;
     }
