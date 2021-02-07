@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
@@ -27,7 +28,7 @@ public class KafkaConsumer {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @KafkaListener(topics = TOPIC)
+    @KafkaListener(topicPartitions = {@TopicPartition(topic = TOPIC, partitions = {"1"})})
     public void topicTest(ConsumerRecord<?, ?> consumerRecord,
                           Acknowledgment acknowledgment,
                           @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws JsonProcessingException {

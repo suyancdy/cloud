@@ -31,7 +31,8 @@ public class KafkaProducer {
         log.info("准备向: {}, 发送的消息为: {}", TOPIC, objectString.toString());
         // 发送
         ListenableFuture<SendResult<String, Object>> listenableFuture =
-                kafkaTemplate.send(TOPIC, objectString);
+//                kafkaTemplate.send(TOPIC, objectString);
+                kafkaTemplate.send(TOPIC,1,"0", objectString);
         listenableFuture.addCallback(new ListenableFutureCallback<SendResult<String, Object>>() {
             @Override
             public void onFailure(Throwable ex) {
