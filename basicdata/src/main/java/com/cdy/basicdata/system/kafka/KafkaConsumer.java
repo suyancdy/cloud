@@ -32,6 +32,7 @@ public class KafkaConsumer {
     public void topicTest(ConsumerRecord<?, ?> consumerRecord,
                           Acknowledgment acknowledgment,
                           @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws JsonProcessingException {
+
         Optional messageOptional = Optional.ofNullable(consumerRecord.value());
         if (messageOptional.isPresent()) {
             String msg = (String) messageOptional.get();
@@ -40,5 +41,9 @@ public class KafkaConsumer {
             log.info("topicTest消费了: 主题为: {}, 消息为: {}", topic, msg);
             acknowledgment.acknowledge();
         }
+
     }
+
+
+
 }
