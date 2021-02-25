@@ -1,0 +1,4 @@
+test:
+  door:
+    enabled: true
+    whiteList: 1001,aaa,ccc # 白名单多个使用逗号隔开

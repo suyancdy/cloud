@@ -1,6 +1,12 @@
 server:
   port: 15200
+  servlet:
+    context-path: /bd
+
 spring:
+  profiles:
+    include: custom
+
   application:
     name: cloud-basicdata-chendeyin  # 服务间调用所使用的名称
 

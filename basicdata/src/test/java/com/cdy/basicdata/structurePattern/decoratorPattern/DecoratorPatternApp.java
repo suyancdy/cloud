@@ -1,10 +1,10 @@
 package com.cdy.basicdata.structurePattern.decoratorPattern;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 /**
  * @Description: 装饰器模式
@@ -17,7 +17,19 @@ import java.util.concurrent.ConcurrentMap;
  * @Author: chendeyin
  * @Date: 2021/2/23 15:39
  */
+@Slf4j
 public class DecoratorPatternApp {
+
+    public static void main(String[] args) {
+        t1();
+    }
+
+    public static void t1(){
+       LoginSsoDecorator loginSsoDecorator = new LoginSsoDecorator(new SsoInterceptor());
+       String request="lsuccesshuahua";
+        boolean success = loginSsoDecorator.preHandle(request, "ewcdqwt40liuiu", "t");
+        log.debug("登录校验: {}, 是否放行: {}", request, success ? "放行": "拦截");
+    }
 
 }
 
@@ -66,6 +78,7 @@ abstract class SsoDecorator implements HandleInterceptor {
 
 
 // 装饰器角色逻辑实现
+@Slf4j
 class LoginSsoDecorator extends SsoDecorator {
 
     private static Map<String, String> authMap = new ConcurrentHashMap<>();
@@ -75,12 +88,21 @@ class LoginSsoDecorator extends SsoDecorator {
         authMap.put("doudou", "queryUserInfo");
     }
 
+    public LoginSsoDecorator(HandleInterceptor handleInterceptor) {
+        super(handleInterceptor);
+    }
+
     @Override
     public boolean preHandle(String request, String response, Object handler) {
 
         boolean success = super.preHandle(request, response, handler);
         if (!success) return  false;
 
-        return null;
+        String userId = request.substring(8);
+        String method = authMap.get(userId);
+        log.debug("模拟单点登录方法访问拦截校验: {}, {}", userId, method);
+        // 模拟方法校验
+        return "queryUserInfo".equals(method);
     }
 }
+
