@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.math.BigDecimal;
 
 /**
  * @Description: 动态代理
@@ -23,15 +24,10 @@ public class DynamicProxyApp {
                 new DynamicProxyInvocationHandler(houseTransaction));
 
         proxyTransaction.buyHouse();
+        proxyTransaction.sellHouse(new BigDecimal(1000000000000000000L));
 
         log.info("-------------");
-
-
-
     }
-
-
-
 
 }
 
