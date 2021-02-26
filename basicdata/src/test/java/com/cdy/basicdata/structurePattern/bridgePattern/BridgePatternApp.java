@@ -9,22 +9,22 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class BridgePatternApp {
-    public static void main(String[] args) {
-
-        log.debug("测试生成白色正方形");
-        Color colorWhite = new White();
-        Shape square = new Square();
-        square.setColor(colorWhite);
-        square.draw();
-
-        log.debug("测试生成黑色圆形");
-        Color colorBlack = new Black();
-        Shape circle = new Circle();
-        circle.setColor(colorBlack);
-        circle.draw();
-
-
-    }
+//    public static void main(String[] args) {
+//
+//        log.debug("测试生成白色正方形");
+//        Color colorWhite = new White();
+//        Shape square = new Square();
+//        square.setColor(colorWhite);
+//        square.draw();
+//
+//        log.debug("测试生成黑色圆形");
+//        Color colorBlack = new Black();
+//        Shape circle = new Circle();
+//        circle.setColor(colorBlack);
+//        circle.draw();
+//
+//
+//    }
 }
 
 // 颜色接口

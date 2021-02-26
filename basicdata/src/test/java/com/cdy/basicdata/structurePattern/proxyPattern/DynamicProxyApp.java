@@ -22,7 +22,6 @@ public class DynamicProxyApp {
                 houseTransaction.getClass().getClassLoader(),
                 new Class[]{HouseTransaction.class},
                 new DynamicProxyInvocationHandler(houseTransaction));
-
         proxyTransaction.buyHouse();
         proxyTransaction.sellHouse(new BigDecimal(1000000000000000000L));
 
@@ -61,10 +60,6 @@ class DynamicProxyInvocationHandler implements InvocationHandler {
         Object result = method.invoke(target, args);
         log.debug("invoke after");
         return  result;
-    }
-
-    public void  test(){
-        log.debug("test");
     }
 
 }

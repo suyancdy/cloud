@@ -39,28 +39,28 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdapterApp {
 
-    public static void main(String[] args) {
-        // 类适配器模式测试
-//        classAdapterTest();
-
-
-        // 对象适配器模式测试
-        objectAdapterTest();
-    }
-
-    public static void classAdapterTest(){
-        log.info("类适配器模式测试:");
-        Target target = new ClassAdapter();
-        target.request();
-    }
-
-    public static void objectAdapterTest(){
-        log.info("对象适配器测试");
-        Adaptee adaptee = new Adaptee();
-        ObjectAdapter objectAdapter = new ObjectAdapter(adaptee);
-        objectAdapter.request();
-
-    }
+//    public static void main(String[] args) {
+//        // 类适配器模式测试
+////        classAdapterTest();
+//
+//
+//        // 对象适配器模式测试
+//        objectAdapterTest();
+//    }
+//
+//    public static void classAdapterTest(){
+//        log.info("类适配器模式测试:");
+//        Target target = new ClassAdapter();
+//        target.request();
+//    }
+//
+//    public static void objectAdapterTest(){
+//        log.info("对象适配器测试");
+//        Adaptee adaptee = new Adaptee();
+//        ObjectAdapter objectAdapter = new ObjectAdapter(adaptee);
+//        objectAdapter.request();
+//
+//    }
 }
 
 /**
@@ -80,15 +80,15 @@ class Adaptee {
     }
 }
 
-/**
- * 类适配器类
- */
-class ClassAdapter extends Adaptee implements Target {
-    @Override
-    public void request() {
-        specificRequest();
-    }
-}
+///**
+// * 类适配器类
+// */
+//class ClassAdapter extends Adaptee implements Target {
+//    @Override
+//    public void request() {
+//        specificRequest();
+//    }
+//}
 
 /**
  * 对象适配器类
