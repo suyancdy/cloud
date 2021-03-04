@@ -16,7 +16,7 @@ import java.util.List;
  * @since 2020-12-29
  */
 public interface IPeopleService  {
-    List<People> listByParams(PageParam pageParam);
+    List<People>  listByParams(PageParam pageParam);
 
     People getById(Integer id);
 

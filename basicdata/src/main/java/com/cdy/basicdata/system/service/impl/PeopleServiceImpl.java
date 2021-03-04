@@ -37,7 +37,8 @@ public class PeopleServiceImpl implements IPeopleService {
 
     @Transactional(isolation = Isolation.READ_COMMITTED)
     @Override
-    public List<People> listByParams(PageParam pageParam) {
+    public List<People>  listByParams(PageParam pageParam) {
+
         pageParam.setOffSet();
         log.debug("条件列表查询的参数为: {}", pageParam.toString());
         return peopleMapper.listByParams(pageParam);

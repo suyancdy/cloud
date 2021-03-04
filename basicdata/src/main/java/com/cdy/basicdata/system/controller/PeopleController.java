@@ -88,7 +88,7 @@ public class PeopleController {
 
     @ApiOperation("列表查询")
     @GetMapping("/selectListByParams")
-    public List<People> selectListByParams(@ModelAttribute PageParam pageParam) {
+    public List<People>    selectListByParams(@ModelAttribute PageParam pageParam) {
         log.debug("条件列表查询的参数为: {}", pageParam.toString());
         return iPeopleService.listByParams(pageParam);
     }
