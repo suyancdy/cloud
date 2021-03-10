@@ -37,15 +37,30 @@ public class BootTest {
 
 
     public static void main(String[] args) {
-        List<Integer> integerList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            integerList.add(i);
+//        List<Integer> integerList = new ArrayList<>();
+//        for (int i = 0; i < 10; i++) {
+//            integerList.add(i);
+//        }
+//        if (integerList.size() > 5){
+//            integerList = integerList.subList(0, 5);
+//        }
+//        integerList.forEach( i -> {
+//            log.info("===的值为: {}", i.toString());
+//        });
+        log.debug("-");
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 1; i <= 56; i++) {
+
+            stringBuilder.append("'");
+            stringBuilder.append(i);
+            stringBuilder.append("'");
+            stringBuilder.append(",");
         }
-        if (integerList.size() > 5){
-            integerList = integerList.subList(0, 5);
-        }
-        integerList.forEach( i -> {
-            log.info("===的值为: {}", i.toString());
-        });
+        log.debug("结果为: {}", stringBuilder.toString());
+
+
+
     }
 }

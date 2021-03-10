@@ -3,6 +3,9 @@ package com.cdy.basicdata.structurePattern.proxyPatternPlus;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
 /**
  * @Description:
  * @Author: chendeyin
@@ -34,7 +37,7 @@ class RealSubject implements Subject {
         return null;
     }
 }
-// 代理类
+// 静态代理类
 @Slf4j
 @Data
 class ProxySubject implements Subject {
@@ -59,5 +62,35 @@ class ProxySubject implements Subject {
         return null;
     }
 }
+
+// 中间类
+@Slf4j
+@Data
+class JavaProxyInvocationHandler implements InvocationHandler {
+
+    private Subject subject;
+
+    public JavaProxyInvocationHandler() {
+    }
+
+    public JavaProxyInvocationHandler(Subject subject) {
+        this.subject = subject;
+    }
+
+    /**
+     * 
+     * @param proxy
+     * @param method
+     * @param args
+     * @return
+     * @throws Throwable
+     */
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        return null;
+    }
+}
+
+
 
 
