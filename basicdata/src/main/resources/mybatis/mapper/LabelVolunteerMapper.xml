@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdy.basicdata.test.mapper.LabelVolunteerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="LabelPartyMap" type="com.cdy.basicdata.test.entity.LabelVolunteer">
+        <result column="id" property="id"/>
+        <result column="id_card" property="idCard"/>
+        <result column="id_card_is_delete" property="idCardIsDelete"/>
+    </resultMap>
+
+
+    <select
+            id="listByParams"
+            resultMap="LabelPartyMap">
+        select
+        id,
+        id_card,
+        id_card_is_delete
+        from tb_label_volunteer_temp;
+    </select>
+
+    <update id="updateIdCardIsDelete">
+        update
+        tb_label_volunteer_temp
+        set id_card_is_delete = 4
+        where id =#{id};
+    </update>
+
+</mapper>
